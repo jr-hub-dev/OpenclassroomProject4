@@ -1,9 +1,11 @@
 <?php
 
-class Controller{
-//require('../view/home.php');
-    function home(){
-        $display = include_once('../view/home.php');
+namespace App\Controller;
+
+class Controller
+{
+    public function home()
+    {
+        include_once('../view/home.php');
     }
 }
-?>
