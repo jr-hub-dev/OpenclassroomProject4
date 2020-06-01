@@ -9,8 +9,8 @@ use App\Controller\Controller;
         //appel de la vue -> methode GET
         //renvoi vue + objet
 
-require('../Controller/Controller.php');
-require('../Controller/PostController.php');  
+require '../Autoloader/Autoloader.php';
+Autoloader::register();
 
 //Page d'accueil
 if ('home' === $_GET['action']   || $_GET['action'] === '') {
@@ -19,5 +19,5 @@ if ('home' === $_GET['action']   || $_GET['action'] === '') {
 //Page Post
 } elseif ($_GET['action'] === 'post') {
         $postController = new PostController;
-        $postController->view();
+        $postController->view($id);
 }
