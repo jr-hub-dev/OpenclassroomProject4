@@ -8,9 +8,9 @@ class Autoloader
 	}
 
 
-	static function autoload($class_name)
+	static function autoload()
 	{
-        require '../Controller/controller.php';
+        //require '../Controller/Controller.php';
 		require '../Controller/PostController.php';
 		require '../Model/Database.php';
 		require '../Config/config.php';

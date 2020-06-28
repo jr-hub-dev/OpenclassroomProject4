@@ -1,9 +1,31 @@
 <?php
 
+namespace App\Controller;
+
+use App\Model\PostManager;
+
 class PostController
 {
-    public function view()
+    //Afficher vue
+    public function view($id)
     {
-        include_once('../view/postView.php');
+        $postManager = new PostManager();
+        $post = $postManager->getPost($id);
+
+        $template = 'postView';
+        include '../view/layout.php';
+    }
+
+    //Creation nouveau
+    public function create()
+    { 
+        if (!empty($_POST)) {
+            $postManager = new PostManager();
+            $postId = $postManager->create($_POST['title'], $_POST['content']);
+
+            header('Location: index.php?objet=post&action=view&id=' . $postId);
+        }
+        
+        include '../Model/form.php';
     }
 }

@@ -37,9 +37,6 @@ if ('home' === $_GET['action'] || '' === $_GET['action']) {
     //Creation du post
     } elseif ('create' === $_GET['action']) {// objet ) post action =
         $postController->create();
-    //Modification du post
-    } elseif ('modify' === $_GET['action']) {// objet ) post action =
-        $postController->modify();
-        //if action = create; if action 
-    }
+    
+    } 
 }
