@@ -26,10 +26,6 @@ spl_autoload_register(function ($class) {
 });
 
 //Page d'accueil
-if ('postsList' === $_GET['action']) {
-    $controller = new Controller; 
-    $controller->displayAll();
-    }
 if ('home' === $_GET['action'] || '' === $_GET['action']) {
     $controller = new Controller; 
     $controller->home();
@@ -46,5 +42,9 @@ if ('home' === $_GET['action'] || '' === $_GET['action']) {
         //if action = create; if action
     } elseif ('delete' === $_GET['action']) {// objet ) post action =
         $postController->delete();
+    }
+    elseif ('postsList' === $_GET['action']) {
+        $controller = new Controller; 
+        $controller->displayAll();
     }
 }
