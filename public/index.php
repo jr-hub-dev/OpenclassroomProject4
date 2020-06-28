@@ -40,5 +40,7 @@ if ('home' === $_GET['action'] || '' === $_GET['action']) {
     } elseif ('modify' === $_GET['action']) {// objet ) post action =
         $postController->modify();
         //if action = create; if action
+    } elseif ('delete' === $_GET['action']) {// objet ) post action =
+        $postController->delete();
     }
 }
