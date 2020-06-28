@@ -9,6 +9,8 @@
     <?php foreach($posts as $post) { ?>
         <tr>
             <td><?php echo $post->getTitle(); ?></td>
+            <td><?php echo $post->getContent(); ?></td>
+            <td><?php echo $post->getId(); ?></td>
         </tr>
         <?php } ?>
     </body>
