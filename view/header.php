@@ -13,5 +13,6 @@
 
 			<input type="submit" name="submit" id="connexion" value="Se connecter">
 		</form>
+		
 	</nav>
 </header>
