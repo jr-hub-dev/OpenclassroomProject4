@@ -50,7 +50,7 @@ class PostManager extends Database {
         return $bdd->lastInsertId();//id du post a recuprer
     }
 
-    public function deletePost($postId)
+    public function delete($postId)
     {
         $bdd = $this->dbConnect();
         $req = $bdd->prepare('DELETE FROM post WHERE id = ?');
