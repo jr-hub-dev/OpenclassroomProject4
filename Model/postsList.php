@@ -11,6 +11,8 @@
             <td><?php echo $post->getTitle(); ?></td>
             <td><?php echo $post->getContent(); ?></td>
             <td><?php echo $post->getId(); ?></td>
+            <td><input type="button" method='modify' id="modifie-site"value="Modifier" /></td>
+            <td><input type="button" method='delete' id="delete-site" value="Supprimer" /></td>
         </tr>
         <?php } ?>
     </body>
