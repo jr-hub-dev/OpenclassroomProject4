@@ -44,6 +44,8 @@ class PostController
         if (!empty($_POST)) {
             $postManager = new PostManager();
             $postId = $postManager->delete($id);
+
+            header('Location: index.php?objet=post&action=postsList&id=' . $postId);
         }
     }
 }
