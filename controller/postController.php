@@ -43,11 +43,7 @@ class PostController
     { 
         if (!empty($_POST)) {
             $postManager = new PostManager();
-            $postId = $postManager->delete($_POST['title'], $_POST['content']);
-
-            header('Location: index.php?objet=post&action=view&id=' . $postId);
+            $postId = $postManager->delete($id);
         }
-
-        include '../Model/form.php';
     }
 }

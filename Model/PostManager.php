@@ -55,7 +55,7 @@ class PostManager extends Database {
         $bdd = $this->dbConnect();
         $req = $bdd->prepare('DELETE FROM post WHERE id = ?');
         $deletedPost = $req->execute(array($postId));
-
+        
         return $deletedPost;
     }
 
