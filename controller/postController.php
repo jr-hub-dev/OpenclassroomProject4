@@ -32,7 +32,7 @@ class PostController
     { 
         if (!empty($_POST)) {
             $postManager = new PostManager();
-            $postId = $postManager->create($_POST['title'], $_POST['content']);
+            $postId = $postManager->modify($_POST['title'], $_POST['content']);
 
             header('Location: index.php?objet=post&action=view&id=' . $postId);
         }
