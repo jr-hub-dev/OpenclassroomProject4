@@ -29,7 +29,7 @@ class PostManager extends Database {
             //var_dump($post);
             $posts[] = $this->hydrate($post);
         }
-
+        
         return $posts;
     }
 
@@ -50,11 +50,11 @@ class PostManager extends Database {
         return $bdd->lastInsertId();//id du post a recuprer
     }
 
-    public function delete($postId)
+    public function delete($post)
     {
         $bdd = $this->dbConnect();
         $req = $bdd->prepare('DELETE FROM post WHERE id = ?');
-        $deletedPost = $req->execute(array($postId));
+        $deletedPost = $req->execute(array($post));
         
         return $deletedPost;
     }
