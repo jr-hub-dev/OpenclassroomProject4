@@ -1,4 +1,4 @@
-<form method='post'>
+<form method="post">
     <label for='newBilletTitle'>Titre du chapitre</label>
     <input type='text' name='title' id='newBilletTitle' value="<?php if (isset($post)) echo $post->getTitle(); ?>" disabled>
 
