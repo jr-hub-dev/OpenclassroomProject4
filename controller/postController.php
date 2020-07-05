@@ -26,7 +26,7 @@ class PostController
             header('Location: index.php?objet=post&action=view&id=' . $postId);
         }
         
-        $template = 'formPost';
+        $template = 'createFormPost';
         include '../view/layout.php';
     }
 
@@ -61,7 +61,7 @@ class PostController
             header('Location: index.php?objet=post&action=delete&id=' . $postId);            
         }
 
-        $template = 'formPost';
+        $template = 'deleteFormPost';
         include '../view/layout.php';
     }
 }
