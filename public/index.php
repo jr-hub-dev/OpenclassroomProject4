@@ -35,13 +35,13 @@ if ('home' === $_GET['action'] || '' === $_GET['action']) {
     if ('view' === $_GET['action']) {        
         $postController->view($_GET['id']);
     //Creation du post
-    } elseif ('create' === $_GET['action']) {// objet ) post action =
+    } elseif ('create' === $_GET['action']) {
         $postController->create();
     //Modification du post  
-    } elseif ('modify' === $_GET['action']) {// objet ) post action =
+    } elseif ('modify' === $_GET['action']) {
         $postController->modify($_GET['id']);
     //Suppression du post
-    } elseif ('delete' === $_GET['action']) {// objet ) post action =
+    } elseif ('delete' === $_GET['action']) {
         $postController->delete($_GET['id']);
     }
     //Affiche liste des posts

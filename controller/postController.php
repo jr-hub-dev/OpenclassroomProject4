@@ -39,9 +39,10 @@ class PostController
         if (!empty($_POST)) {
             $postManager->modify($postId);
             if ($postManager->delete($postId)) {
-                header('Location: index.php?objet=post&action=view&id=' . $postId);
-            }            
-        }
+            
+            header('Location: index.php?objet=post&action=view&id=' . $postId);
+        }            
+    }
 
         $template = 'formPost';
         include '../view/layout.php';
