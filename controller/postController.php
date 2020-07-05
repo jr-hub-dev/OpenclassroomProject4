@@ -30,6 +30,7 @@ class PostController
         include '../view/layout.php';
     }
 
+    //Modifier un post
     public function modify($postId)
     { 
         $postManager = new PostManager();
@@ -46,7 +47,8 @@ class PostController
         include '../view/layout.php';
     }
 
-    public function delete($postId) //dénifir methode
+    //Supprimer un post
+    public function delete($postId) 
     { 
         $postManager = new PostManager();
         $post = $postManager->getPost($postId);
