@@ -10,10 +10,4 @@ class Controller
     {
         include_once('../view/home.php');
     }
-    public function displayAll()
-    {   
-        $postManager = new PostManager();
-        $posts = $postManager->getPosts();
-        include '../view/postsList.php';
-    }
 }

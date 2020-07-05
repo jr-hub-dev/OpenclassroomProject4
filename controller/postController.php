@@ -64,4 +64,12 @@ class PostController
         $template = 'deleteFormPost';
         include '../view/layout.php';
     }
+    public function displayAll()
+    {   
+        $postManager = new PostManager();
+        $posts = $postManager->getPosts();
+
+        $template = 'postsList';
+        include '../view/layout.php';
+    }
 }

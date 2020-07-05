@@ -44,7 +44,6 @@ if ('home' === $_GET['action'] || '' === $_GET['action']) {
         $postController->delete($_GET['id']);
     }
     elseif ('postsList' === $_GET['action']) {
-        $controller = new Controller; 
-        $controller->displayAll();
+        $postController->displayAll();
     }
 }
