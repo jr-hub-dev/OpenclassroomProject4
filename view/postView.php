@@ -1,5 +1,4 @@
-
- <?php
+<?php
 //var_dump($post);
 ?>
 <h1>

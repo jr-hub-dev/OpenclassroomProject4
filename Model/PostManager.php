@@ -22,7 +22,7 @@ class PostManager extends Database {
         $req = $bdd->prepare('SELECT id, title, content, creationDate, updateDate FROM post'); // formater la date dans la vue + table avec 5 champs
         $req->execute();
         $result = $req->fetchAll();
-        var_dump($result);
+        //var_dump($result);
 
         $posts = [];
         foreach ($result as $post) {
@@ -41,22 +41,25 @@ class PostManager extends Database {
 
         return $bdd->lastInsertId();
     }
-    public function modify($title, $content)
+
+    public function modify($postId)
     {
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('INSERT INTO post(title, content, creationDate, updateDate) VALUES (?, ?, NOW(), NOW())');//a voir
-        $req->execute(array($title, $content));
+        $req = $bdd->prepare('UPDATE post SET title = ?, content = ?, updateDate = NOW() WHERE id = ?');//a voir
+        
+        return $req->execute(array(
+            $POST['title'], 
+            $POST['content'], 
+            $postId
+        ));
 
-        return $bdd->lastInsertId();//id du post a recuprer
     }
 
-    public function delete($post)
+    public function delete($postId)
     {
         $bdd = $this->dbConnect();
         $req = $bdd->prepare('DELETE FROM post WHERE id = ?');
-        $deletedPost = $req->execute(array($post));
-        
-        return $deletedPost;
+        return $req->execute(array($postId));
     }
 
     public function hydrate($data)

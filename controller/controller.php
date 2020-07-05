@@ -14,6 +14,6 @@ class Controller
     {   
         $postManager = new PostManager();
         $posts = $postManager->getPosts();
-        include '../Model/postsList.php';
+        include '../view/postsList.php';
     }
 }

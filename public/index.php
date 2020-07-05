@@ -38,10 +38,10 @@ if ('home' === $_GET['action'] || '' === $_GET['action']) {
     } elseif ('create' === $_GET['action']) {// objet ) post action =
         $postController->create();    
     } elseif ('modify' === $_GET['action']) {// objet ) post action =
-        $postController->modify();
+        $postController->modify($_GET['id']);
         //if action = create; if action
     } elseif ('delete' === $_GET['action']) {// objet ) post action =
-        $postController->delete();
+        $postController->delete($_GET['id']);
     }
     elseif ('postsList' === $_GET['action']) {
         $controller = new Controller; 
