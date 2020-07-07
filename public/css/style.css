@@ -1,0 +1,17 @@
+body{
+	margin: 0;
+	padding: 0;	
+    text-align: center;
+}
+#banniere{
+    display: flex;
+    color :blue;
+    justify-content: space-around;
+	align-items: center;
+}
+#menu{
+    display: flex;
+    width: 30%;
+    list-style-type: none;
+    justify-content: space-around;
+}
