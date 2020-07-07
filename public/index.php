@@ -26,7 +26,7 @@ spl_autoload_register(function ($class) {
 });
 
 //Page d'accueil
-if ('home' === $_GET['action'] || '' === $_GET['action']) {
+if (!isset($_GET['action']) || 'home' === $_GET['action'] || '' === $_GET['action']) {
     $controller = new Controller; 
     $controller->home();
 //Page Post

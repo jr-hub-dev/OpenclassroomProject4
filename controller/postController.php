@@ -26,7 +26,7 @@ class PostController
             header('Location: index.php?objet=post&action=view&id=' . $postId);
         }
         
-        $template = 'createFormPost';
+        $template = 'postCreate';
         include '../view/layout.php';
     }
 
@@ -37,14 +37,12 @@ class PostController
         $post = $postManager->getPost($postId);
 
         if (!empty($_POST)) {
-            $postManager->modify($postId);
-            if ($postManager->delete($postId)) {
-            
-            header('Location: index.php?objet=post&action=view&id=' . $postId);
-        }            
-    }
+            if ($postManager->modify($postId)) {
+                header('Location: index.php?objet=post&action=view&id=' . $postId);
+            }            
+        }
 
-        $template = 'formPost';
+        $template = 'postModify';
         include '../view/layout.php';
     }
 
@@ -57,12 +55,12 @@ class PostController
         if (!empty($_POST)) {
             if ($postManager->delete($postId)) {
                 header('Location: index.php');
+                exit;
             }
-        
             header('Location: index.php?objet=post&action=delete&id=' . $postId);            
         }
 
-        $template = 'deleteFormPost';
+        $template = 'postDelete';
         include '../view/layout.php';
     }
 

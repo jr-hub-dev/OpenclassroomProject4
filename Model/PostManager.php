@@ -5,7 +5,8 @@ namespace App\Model;
 use App\Model\Database;
 use DateTime;
 
-class PostManager extends Database { 
+class PostManager extends Database
+{ 
 
     public function getPost($postId) 
     {   
@@ -48,8 +49,8 @@ class PostManager extends Database {
         $req = $bdd->prepare('UPDATE post SET title = ?, content = ?, updateDate = NOW() WHERE id = ?');//a voir
         
         return $req->execute(array(
-            $POST['title'], 
-            $POST['content'], 
+            $_POST['title'], 
+            $_POST['content'], 
             $postId
         ));
 
@@ -59,6 +60,7 @@ class PostManager extends Database {
     {
         $bdd = $this->dbConnect();
         $req = $bdd->prepare('DELETE FROM post WHERE id = ?');
+        
         return $req->execute(array($postId));
     }
 

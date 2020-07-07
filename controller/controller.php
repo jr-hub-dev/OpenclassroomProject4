@@ -8,6 +8,7 @@ class Controller
 {
     public function home()
     {
-        include_once('../view/home.php');
+        $template = 'home';
+        include '../view/layout.php';        
     }
 }
