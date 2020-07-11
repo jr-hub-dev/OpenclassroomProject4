@@ -11,6 +11,6 @@
 			<label for="name">Nom : </label><input type="text" id="name" placeholder="Votre nom" required/><br />
 			<label for="firstname"> Prénom : </label><input type="text" id="firstname" placeholder="Votre prénom" required><br />
 			<input type="submit" name="submit" id="connexion" value="Se connecter">
-		</form>		
+		</form>
 	</nav>
 </header>
