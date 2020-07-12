@@ -20,10 +20,10 @@ class PostController
     public function create()
     { 
         if (!empty($_POST)) {
-            if($_POST['title'] ===''){
+            if(empty($_POST['title'])){
                 echo 'Veuillez entrer le titre du post';
             }
-            if ($_POST['title'] ===''){
+            if (empty($_POST['content'])){
                 echo 'Veuillez entrer un contenu';
             }else{
                 $postManager = new PostManager();
