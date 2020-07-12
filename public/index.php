@@ -2,6 +2,7 @@
 
 use App\Controller\Controller;
 use App\Controller\PostController;
+use App\Controller\UserController;
 
 
 //spl_autoload_register
@@ -48,4 +49,12 @@ if (!isset($_GET['action']) || 'home' === $_GET['action'] || '' === $_GET['actio
     elseif ('postsList' === $_GET['action']) {
         $postController->displayAll();
     }
+        //Affiche liste des posts
+    elseif ('postsList' === $_GET['action']) {
+        $postController->displayAll();
+    }
+} elseif ('user' === $_GET['objet']) {
+    $userController = new UserController;
+} if ('create' === $_GET['action']) {        
+    $userController->create();
 }

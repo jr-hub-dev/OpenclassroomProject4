@@ -29,7 +29,11 @@ class User
     }
 
 
+<<<<<<< HEAD
     public function setLogin(?string $login) : self 
+=======
+    public function setLogin(?string $login) : ?string 
+>>>>>>> dev
     {
         $this->login = $login;
 
