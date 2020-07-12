@@ -29,7 +29,7 @@ class User
     }
 
 
-    public function setLogin(?string $title) : self 
+    public function setLogin(?string $login) : self 
     {
         $this->login = $login;
 
@@ -41,7 +41,7 @@ class User
         return $this->password;
     }
 
-    public function setPassword(?string $content) : self 
+    public function setPassword(?string $password) : self 
     {
         $this->password = $password;
 
@@ -49,7 +49,7 @@ class User
     }
     public function getEmail() : ?string
     {
-        return $this->creationDate;
+        return $this->email;
     }
 
     public function setEmail(?string $email)
