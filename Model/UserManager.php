@@ -34,7 +34,7 @@ class UserManager extends Database
             $_POST['userLogin'], 
             $_POST['userPassword'], 
             $_POST['userEmail'], 
-            $postId
+            $userId
         ));
 
     }
