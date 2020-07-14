@@ -29,6 +29,7 @@ if (!isset($_GET['action']) || 'home' === $_GET['action'] || '' === $_GET['actio
         $postController->view($_GET['id']);
     //Creation du post
     } elseif ('create' === $_GET['action']) {
+        //$postController-> getPostData();
         $postController->create();
     //Modification du post  
     } elseif ('modify' === $_GET['action']) {
@@ -41,12 +42,9 @@ if (!isset($_GET['action']) || 'home' === $_GET['action'] || '' === $_GET['actio
     elseif ('postsList' === $_GET['action']) {
         $postController->displayAll();
     }
-        //Affiche liste des posts
-    elseif ('postsList' === $_GET['action']) {
-        $postController->displayAll();
-    }
-} elseif ('user' === $_GET['objet']) {
+
+} /*elseif ('user' === $_GET['objet']) {
     $userController = new UserController;
 } if ('create' === $_GET['action']) {        
     $userController->create();
-}
+}*/
