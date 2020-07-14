@@ -5,14 +5,6 @@ use App\Controller\PostController;
 use App\Controller\UserController;
 
 
-//spl_autoload_register
-//routeur - si index.php tel conttroller si autre autre controller
-    //appel du controller
-        //requete base de donnée -> hydratation objet -> sera renvoyer à la vue
-        //appel de la vue -> methode GET
-        //renvoi vue + objet
-
-
 spl_autoload_register(function ($class) {
     $class = '../' . str_replace("\\", '/', $class) . '.php';
     $class = str_replace("App/", '', $class);

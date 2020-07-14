@@ -12,7 +12,7 @@ class UserController
         $userManager = new UserManager();
         $userId = $usertManager->create($_POST['userLogin'], $_POST['userPassword'], $_POST['userEmail']);
 
-        header('Location: index.php?objet=post&action=view&id=' . $postId);
+        header('Location: index.php?objet=post&action=view&id=' . $userId);
       
         $template = 'userCreate';
         include '../view/layout.php';
@@ -22,7 +22,7 @@ class UserController
     public function modify($userId)
     { 
         $userManager = new UserManager();
-        $user = $userManager->getPost($userId);
+        $user = $userManager->getUser($userId);
 
         if (!empty($_POST)) {
             if ($userManager->modify($userId)) {
