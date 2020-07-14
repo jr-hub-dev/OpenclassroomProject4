@@ -11,7 +11,6 @@ class UserController
     { 
         $userManager = new UserManager();
         $userId = $usertManager->create($_POST['userLogin'], $_POST['userPassword'], $_POST['userEmail']);
-    );
 
         header('Location: index.php?objet=post&action=view&id=' . $postId);
       
