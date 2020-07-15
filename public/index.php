@@ -29,7 +29,6 @@ if (!isset($_GET['action']) || 'home' === $_GET['action'] || '' === $_GET['actio
         $postController->view($_GET['id']);
     //Creation du post
     } elseif ('create' === $_GET['action']) {
-        //$postController-> getPostData();
         $postController->create();
     //Modification du post  
     } elseif ('modify' === $_GET['action']) {
