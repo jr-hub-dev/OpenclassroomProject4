@@ -42,39 +42,6 @@ class PostController
 
     //Creation nouveau
     public function create()
-<<<<<<< HEAD
-<<<<<<< HEAD
-    { 
-        if (!empty($_POST)) {
-            if(empty($_POST['title'])){
-                echo 'Veuillez entrer le titre du post';
-            }
-            if (empty($_POST['content'])){
-                echo 'Veuillez entrer un contenu';
-            }else{
-                $postManager = new PostManager();
-<<<<<<< HEAD
-                $postId = $postManager->create(filter_var($_POST['title'], FILTER_SANITIZE_STRING), $_POST['content']);
-=======
-                $postId = $postManager->create($_POST['title'], $_POST['content']);
->>>>>>> 4748ddbcd4d337c575e42dfe2b2757ba17434e19
-=======
-    {    $postClean = array(
-        'cleanTitle' => $cleanTitle = filter_var($_POST['title'], FILTER_SANITIZE_STRING),
-        'cleanContent' => $cleanContent = filter_var($_POST['content'], FILTER_SANITIZE_STRING),
-        );
-var_dump ($cleanTitle);
-        if (!empty($postClean)) {
-        if(empty($cleanTitle)){
-            echo 'Veuillez entrer le titre du post';
-        }elseif (empty($cleanContent)){
-            echo 'Veuillez entrer un contenu';
-        }else{
-            $postManager = new PostManager();
-            $postId = $postManager->create($postClean['cleanTitle'], $postClean['cleanContent']);
->>>>>>> dev
-
-=======
     {
         //Traitement du formulaire
         $this->cleanData();
@@ -82,7 +49,6 @@ var_dump ($cleanTitle);
             $postManager = new PostManager();
             $postId = $postManager->create($this->postClean);
     
->>>>>>> dev
             header('Location: index.php?objet=post&action=view&id=' . $postId);
         } 
 
