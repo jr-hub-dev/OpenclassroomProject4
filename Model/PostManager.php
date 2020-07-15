@@ -34,11 +34,11 @@ class PostManager extends Database
         return $posts;
     }
 
-    public function create($title, $content)
+    public function create($postClean)
     {
         $bdd = $this->dbConnect();
         $req = $bdd->prepare('INSERT INTO post(title, content, creationDate, updateDate) VALUES (?, ?, NOW(), NOW())');
-        $req->execute(array($title, $content));
+        $req->execute(array($postClean['title'], $postClean['content']));
 
         return $bdd->lastInsertId();
     }
