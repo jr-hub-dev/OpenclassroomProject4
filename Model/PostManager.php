@@ -46,11 +46,11 @@ class PostManager extends Database
     public function modify($postId)
     {
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('UPDATE post SET title = ?, content = ?, updateDate = NOW() WHERE id = ?');//a voir
+        $req = $bdd->prepare('UPDATE post SET title = ?, content = ?, updateDate = NOW() WHERE id = ?');
         
         return $req->execute(array(
-            $_POST['title'], 
-            $_POST['content'], 
+            $postClean['title'] = $_POST['title'],
+            $postClean['content']= $_POST['content'], 
             $postId
         ));
 

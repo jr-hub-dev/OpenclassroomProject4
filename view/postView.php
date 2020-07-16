@@ -1,8 +1,8 @@
 <?php
-//var_dump($post);
+var_dump($post);
 ?>
 <h1>
-    Titre : <?php echo 'Titre du post :' .$post->getTitle(); ?>
+    Titre : <?php echo $post->getTitle(); ?>
 </h1>
 <p>
     Date de création :<?php echo $post->getCreationDate()->format('d/m/Y H:i:s'); ?>
