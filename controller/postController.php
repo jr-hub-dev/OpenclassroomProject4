@@ -14,7 +14,7 @@ class PostController
             $this->postClean = filter_var_array($_POST, FILTER_SANITIZE_STRING);
             if (!empty($this->postClean)) {
                 if ($this->postClean['title'] === '') {
-                    //echo 'Veuillez entrer le titre du post';
+                    echo 'Veuillez entrer le titre du post';
                     header('Location: index.php?objet=post&action=create');
                     exit;
                 } elseif (strlen($this->postClean['title']) < 5) {
@@ -63,21 +63,14 @@ class PostController
     { 
         $this->cleanData();
         if (!empty($this->postClean)) {
-            if ($this->postClean['title'] === '') {
-                echo 'Veuillez entrer le titre du post';
-            } elseif (strlen($this->postClean['title']) < 5) {
-                echo 'Votre titre doit faire plus de 5 lettres';
-            } elseif ($this->postClean['content'] === '') {
-                echo 'Veuillez entrer un contenu';
-            } else {
-                $postManager = new PostManager();
-                $post = $postManager->getPost($postId);
-        
-                if (!empty($this->postClean)) {
-                    if ($postManager->modify($postId)) {
-                        header('Location: index.php?objet=post&action=view&id=' . $postId);
-                    }            
-                }
+
+            $postManager = new PostManager();
+            $post = $postManager->getPost($postId);
+    
+            if (!empty($this->postClean)) {
+                if ($postManager->modify($postId)) {
+                    header('Location: index.php?objet=post&action=view&id=' . $postId);
+                }            
             }
         }        
 

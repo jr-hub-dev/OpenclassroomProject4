@@ -7,24 +7,27 @@ use App\Model\UserManager;
 class UserController
 
 {
+    private $userClean = array();
+
     public function cleanData()
     {
         if (!empty($_POST)) {  
             $this->userClean = filter_var_array($_POST, FILTER_SANITIZE_STRING);
             if (!empty($this->userClean)) {
                 if ($this->userClean['userLogin'] === '') {
-                    //echo 'Veuillez entrer le titre du post';
-                    header('Location: index.php?objet=user&action=create');
+                    echo 'Veuillez entrer un login';
                     exit;
                 } elseif (strlen($this->userClean['userLogin']) < 5) {
-                    echo 'Votre titre doit faire plus de 5 lettres';
+                    echo 'Votre login doit faire plus de 5 lettres';
                     exit;
                 } elseif ($this->userClean['userPassword'] === '') {
-                    echo 'Veuillez entrer un contenu';
+                    echo 'Veuillez entrer un password';
                     exit;
+                } elseif (strlen($this->userClean['userPassword']) < 8) {
+                    echo 'Votre password doit faire 8 caractères ou plus';
                 }
             } elseif ($this->userClean['userEmail'] === '') {
-                echo 'Veuillez entrer un contenu';
+                echo 'Veuillez entrer un email';
                 exit;
             }
         }
@@ -33,7 +36,7 @@ class UserController
     public function view($userId)
     {
         $userManager = new UserManager();
-        $user = $userManager->getUser($usertId);
+        $user = $userManager->getUser($userId);
 
         $template = 'userView';
         include '../view/layout.php';

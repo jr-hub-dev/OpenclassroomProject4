@@ -35,7 +35,7 @@ class PostManager extends Database
     }
 
     public function create($postClean)
-    {
+    {var_dump($postClean);
         $bdd = $this->dbConnect();
         $req = $bdd->prepare('INSERT INTO post(title, content, creationDate, updateDate) VALUES (?, ?, NOW(), NOW())');
         $req->execute(array($postClean['title'], $postClean['content']));
