@@ -33,7 +33,7 @@ class UserController
     public function view($userId)
     {
         $userManager = new UserManager();
-        $user = $userManager->getUser($usertId);
+        $user = $userManager->getUser($userId);
 
         $template = 'userView';
         include '../view/layout.php';

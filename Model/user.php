@@ -29,7 +29,7 @@ class User
     }
 
 
-    public function setLogin(?string $login) : ?string 
+    public function setLogin(?string $login) : self 
     {
         $this->login = $login;
 

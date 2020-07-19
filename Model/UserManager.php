@@ -55,11 +55,11 @@ class UserManager extends Database
         $user = new User();
         $user
             ->setId($data['id'])
-            ->setUserLogin($data['userLogin']) 
-            ->setUserPassword($data['userPassword'])
-            ->setUserEmail($data['userEmail'])
+            ->setLogin($data['userLogin']) 
+            ->setPassword($data['userPassword'])
+            ->setEmail($data['userEmail'])
         ;
-        //var_dump($post);
+        var_dump($user);
         return $user;
     }
 }

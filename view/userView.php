@@ -1,6 +1,6 @@
 <?php
-var_dump($post);
+var_dump($user);
 ?>
 <h1>
-    Titre : <?php echo $user->getId(); ?>
+    Login : <?php echo $user->getLogin(); ?>
 </h1>
