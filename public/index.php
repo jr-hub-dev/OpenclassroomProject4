@@ -13,8 +13,7 @@ spl_autoload_register(function ($class) {
     	require_once($class);
     } else {
     //throw new CustomException('Erreur interne de chargement');
-    	var_dump($class);
-        
+    	var_dump($class);        
 	}
 });
 
@@ -42,8 +41,12 @@ if (!isset($_GET['action']) || 'home' === $_GET['action'] || '' === $_GET['actio
         $postController->displayAll();
     }
 
-} /*elseif ('user' === $_GET['objet']) {
+} elseif ('user' === $_GET['objet']) {
     $userController = new UserController;
-} if ('create' === $_GET['action']) {        
+    if ('view' === $_GET['action']) {        
+        $userController->view($_GET['id']);
+    //Creation du user
+    } elseif ('create' === $_GET['action']) {        
     $userController->create();
-}*/
+    }
+}
