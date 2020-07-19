@@ -16,11 +16,11 @@ class UserManager extends Database
         return $this->hydrate($req->fetch());
     }
 
-    public function create($userLogin, $userPassword, $userEmail)
+    public function create($userClean)
     {
         $bdd = $this->dbConnect();
         $req = $bdd->prepare('INSERT INTO users(userLogin, userPassword, userEmail) VALUES (?, ?, NOW(), NOW())');
-        $req->execute(array($userLogin, $userPassword, $userEmail));
+        $req->execute(array($userClean['userLogin'], $userClean['userPassword'], $userClean['userEmail']));
 
         return $bdd->lastInsertId();
     }
@@ -31,9 +31,9 @@ class UserManager extends Database
         $req = $bdd->prepare('UPDATE users SET userLogin = ?, userPassword = ?, userEmail = ? = NOW() WHERE id = ?');//a voir
         
         return $req->execute(array(
-            $_POST['userLogin'], 
-            $_POST['userPassword'], 
-            $_POST['userEmail'], 
+            $userClean['userLogin'], 
+            $userClean['userPassword'], 
+            $userClean['userEmail'], 
             $userId
         ));
 
