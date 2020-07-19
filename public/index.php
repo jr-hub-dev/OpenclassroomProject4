@@ -45,8 +45,9 @@ if (!isset($_GET['action']) || 'home' === $_GET['action'] || '' === $_GET['actio
     $userController = new UserController;
     if ('view' === $_GET['action']) {        
         $userController->view($_GET['id']);
+    }
     //Creation du user
-    } elseif ('create' === $_GET['action']) {        
-    $userController->create();
+    elseif ('create' === $_GET['action']) {        
+        $userController->create();
     }
 }

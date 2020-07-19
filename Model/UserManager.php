@@ -10,7 +10,7 @@ class UserManager extends Database
     public function getUser($userId) 
     {   
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('SELECT id, userLogin, userPassword, userEmail FROM users WHERE id = ?'); // formater la date dans la vue + table avec 5 champs
+        $req = $bdd->prepare('SELECT id, userLogin, userPassword, userEmail FROM users WHERE id = ?');
         $req->execute(array($userId));
 
         return $this->hydrate($req->fetch());
@@ -31,9 +31,9 @@ class UserManager extends Database
         $req = $bdd->prepare('UPDATE users SET userLogin = ?, userPassword = ?, userEmail = ? = NOW() WHERE id = ?');//a voir
         
         return $req->execute(array(
-            $userClean['userLogin'], 
-            $userClean['userPassword'], 
-            $userClean['userEmail'], 
+            $userClean['userLogin'] = $_POST['userLogin'], 
+            $userClean['userPassword']= $_POST['userPassword'], 
+            $userClean['userEmail'] = $_POST['userEmail'], 
             $userId
         ));
 
@@ -49,8 +49,8 @@ class UserManager extends Database
 
     public function hydrate($data)
     {
-        /*var_dump($data);
-        var_dump(new DateTime());
+       // var_dump($data);
+        /*var_dump(new DateTime());
         var_dump(new DateTime($data['creationDate']));*/
         $user = new User();
         $user
@@ -59,7 +59,6 @@ class UserManager extends Database
             ->setPassword($data['userPassword'])
             ->setEmail($data['userEmail'])
         ;
-        var_dump($user);
         return $user;
     }
 }
