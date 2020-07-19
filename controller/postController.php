@@ -70,6 +70,7 @@ class PostController
             if (!empty($this->postClean)) {
                 if ($postManager->modify($postId)) {
                     header('Location: index.php?objet=post&action=view&id=' . $postId);
+                    
                 }            
             }
         }        
