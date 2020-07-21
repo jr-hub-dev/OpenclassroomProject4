@@ -1,3 +1,8 @@
+<?php 
+    foreach($errors as $error){
+        echo $error .'<br/>';
+    }
+?>
 <form method="post">
     <label for="newBilletTitle">Titre du chapitre</label>
     <input type="text" name="title" id="newBilletTitle">

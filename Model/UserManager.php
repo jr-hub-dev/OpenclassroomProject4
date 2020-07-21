@@ -25,7 +25,7 @@ class UserManager extends Database
         return $bdd->lastInsertId();
     }
 
-    public function modify($userID)
+    public function modify($userId)
     {
         $bdd = $this->dbConnect();
         $req = $bdd->prepare('UPDATE users SET userLogin = ?, userPassword = ?, userEmail = ? = NOW() WHERE id = ?');//a voir
