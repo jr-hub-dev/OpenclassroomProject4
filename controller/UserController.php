@@ -11,26 +11,27 @@ class UserController
 
     public function cleanData()
     {
+        $errors = [];
+
         if (!empty($_POST)) {  
             $this->userClean = filter_var_array($_POST, FILTER_SANITIZE_STRING);
             if (!empty($this->userClean)) {
-                if ($this->userClean['userLogin'] === '') {
-                    echo 'Veuillez entrer un login';
-                    exit;
+                if ('' === $this->userClean['userLogin']) {       
+                    $errors[] = 'Veuillez entrer le titre du post';
                 } elseif (strlen($this->userClean['userLogin']) < 5) {
-                    echo 'Votre login doit faire plus de 5 lettres';
-                    exit;
-                } elseif ($this->userClean['userPassword'] === '') {
-                    echo 'Veuillez entrer un password';
-                    exit;
-                } elseif (strlen($this->userClean['userPassword']) < 8) {
-                    echo 'Votre password doit faire 8 caractères ou plus';
+                    $errors[] = 'Votre login doit faire plus de 5 lettres';
                 }
-            } elseif ($this->userClean['userEmail'] === '') {
-                echo 'Veuillez entrer un email';
-                exit;
+                if ('' === $this->userClean['userPassword']) {
+                    $errors[] = 'Veuillez entrer un mot de passe';
+                }
+                if ('' === $this->userClean['userEmail']) {
+                    $errors[] = 'Veuillez entrer un email';
+                }
             }
-        }
+        }  
+    var_dump($this->userClean);
+    //die();
+        return $errors;
     }
 
     public function view($userId)
@@ -45,15 +46,18 @@ class UserController
     //Creation nouveau
     public function create()
         { 
-            $this->cleanData();
-
-            if (!empty($this->postClean)) {
-
+            $errors = $this->cleanData();
+            var_dump($this->userClean);
+            if (!empty($this->userClean) && empty($errors)) {
+                var_dump(1);
+                //die;
                 $userManager = new UserManager();
                 $userId = $userManager->create($this->userClean);
-
+        
                 header('Location: index.php?objet=user&action=view&id=' . $userId);
-            }
+            } 
+            var_dump(2);
+           //die;
         
             $template = 'userCreate';
             include '../view/layout.php';
@@ -65,13 +69,15 @@ class UserController
         $userManager = new UserManager();
         $user = $userManager->getUser($userId);
 
+        $this->cleanData();
+
         if (!empty($_POST)) {
             if ($userManager->modify($userId)) {
-                header('Location: index.php?objet=post&action=view&id=' . $userId);
+                header('Location: index.php?objet=user&action=view&id=' . $userId);
             }            
         }
 
-        $template = 'postModify';
+        $template = 'userModify';
         include '../view/layout.php';
     }
 
@@ -86,7 +92,7 @@ class UserController
                 header('Location: index.php');
                 exit;
             }
-            header('Location: index.php?objet=post&action=delete&id=' . $userId);            
+            header('Location: index.php?objet=user&action=delete&id=' . $userId);            
         }
 
         $template = 'userDelete';
