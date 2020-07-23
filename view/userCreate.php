@@ -1,11 +1,11 @@
 <form method="post">
     <label for="newUser">Login</label>
-    <input type="text" name="userLogin" id="userLogin">
+    <input type="text" name="userLogin" >
 
     <label for="newUser">Mot de passe</label>
-    <input type="text" name="userPassword" id="userPassword">
+    <input type="text" name="userPassword" >
 
     <label for="newUser">Email</label>
-    <input type="text" name="userEmail" id="userEmail">
+    <input type="email" name="userEmail" >
     <input type="submit" value="Valider" />
 </form>
