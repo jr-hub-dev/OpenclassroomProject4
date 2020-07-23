@@ -16,6 +16,23 @@ class UserManager extends Database
         return $this->hydrate($req->fetch());
     }
 
+    public function getUsers() 
+    {   
+        $bdd = $this->dbConnect();
+        $req = $bdd->prepare('SELECT id, userLogin, userPassword, userEmail FROM users'); // formater la date dans la vue + table avec 5 champs
+        $req->execute();
+        $result = $req->fetchAll();
+        //var_dump($result);
+
+        $users = [];
+        foreach ($result as $user) {
+            //var_dump($post);
+            $users[] = $this->hydrate($user);
+        }
+        
+        return $users;
+    }
+
     public function create($userClean)
     {
         $bdd = $this->dbConnect();
