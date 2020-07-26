@@ -3,6 +3,7 @@
 use App\Controller\Controller;
 use App\Controller\PostController;
 use App\Controller\UserController;
+use App\Controller\CommentController;
 
 
 spl_autoload_register(function ($class) {
@@ -24,8 +25,11 @@ if (!isset($_GET['action']) || 'home' === $_GET['action'] || '' === $_GET['actio
 //Page Post
 } elseif ('post' === $_GET['objet']) {
     $postController = new PostController;
+    $commentController = new CommentController;
     if ('view' === $_GET['action']) {        
         $postController->view($_GET['id']);
+        $commentController->view($_GET['1']);
+        $commentController->displayAll();
     //Creation du post
     } elseif ('create' === $_GET['action']) {
         $postController->create();
