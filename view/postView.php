@@ -4,6 +4,14 @@
 <p>
     Date de création :<?php echo $post->getCreationDate()->format('d/m/Y H:i:s'); ?>
 </p>
+
+<form method="post">
+    <label for="newComment">Contenu</label>
+    <textarea name="content" id="newComment"></textarea>
+    <input type="submit" value="Ajouter" />
+</form>
+
 <p>
-    Contenu: <?php echo htmlspecialchars($post->getContent()); ?>
+    Quelqu'un a fait un comentaire: <?php  echo $comment->getContent(); ?>
 </p>
+
