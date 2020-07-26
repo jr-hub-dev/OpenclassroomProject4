@@ -8,6 +8,7 @@ class Post
 {
     private $id;
     private $title;
+    private $content;
     private $creationDate;
     private $updateDate;
 
