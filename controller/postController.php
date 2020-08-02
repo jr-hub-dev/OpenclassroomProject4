@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\PostManager;
+use App\Model\CommentManager;
 
 class PostController
 {
@@ -15,13 +16,21 @@ class PostController
         if (!empty($_POST)) {  
             $this->postClean = filter_var_array($_POST, FILTER_SANITIZE_STRING);
             if (!empty($this->postClean)) {
-                if ('' === $this->postClean['title']) {       
-                    $errors[] = 'Veuillez entrer le titre du post';
-                } elseif (strlen($this->postClean['title']) < 5) {
-                    $errors[] = 'Votre titre doit faire plus de 5 lettres';
+                //Verification de title
+                if (in_array('title', $this->postClean)) {
+                    if ('' === $this->postClean['title']) {       
+                        $errors[] = 'Veuillez entrer le titre du post';
+                    } elseif (strlen($this->postClean['title']) < 5) {
+                        $errors[] = 'Votre titre doit faire plus de 5 lettres';
+                    }
                 }
-                if ('' === $this->postClean['content']) {
+                //Verification de content
+                if (in_array('content', $this->postClean) && '' === $this->postClean['content']) {
                     $errors[] = 'Veuillez entrer un contenu';
+                }
+                //Verification du commentaire
+                if (in_array('comment', $this->postClean) && '' === $this->postClean['comment']) {
+                    $errors[] = 'Veuillez entrer un commentaire';
                 }
             }
         }  
@@ -37,6 +46,26 @@ class PostController
         $postManager = new PostManager();
         $post = $postManager->getPost($postId);
 
+       // $commentController = new CommentController;
+       // $commentController->view($_GET['id']);
+       // $commentController->displayAll();
+
+        $commentManager = new CommentManager;
+
+        //Traitement du formulaire
+        $errors = $this->cleanData();
+var_dump($this->postClean);
+        if (!empty($this->postClean) && empty($errors)) {
+var_dump(1);
+//die;
+            $commentManager->create($postId, $this->postClean);   
+            
+            header('Location: index.php?objet=post&action=view&id=' . $postId);
+        } 
+var_dump(2);
+//die;
+        $comments = $commentManager->getAllByPostId($postId);
+var_dump($comments);
         $template = 'postView';
         include '../view/layout.php';
     }
@@ -46,17 +75,17 @@ class PostController
     {
         //Traitement du formulaire
         $errors = $this->cleanData();
-        var_dump($this->postClean);
+var_dump($this->postClean);
         if (!empty($this->postClean) && empty($errors)) {
-            var_dump(1);
-            die;
+var_dump(1);
+//die;
             $postManager = new PostManager();
             $postId = $postManager->create($this->postClean);
     
             header('Location: index.php?objet=post&action=view&id=' . $postId);
         } 
-        var_dump(2);
-        //die;
+var_dump(2);
+//die;
         //Affichage du formulaire
         $template = 'postCreate';
         include '../view/layout.php';

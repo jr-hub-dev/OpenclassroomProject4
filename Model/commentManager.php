@@ -27,20 +27,34 @@ class CommentManager extends Database
 
         $comments = [];
         foreach ($result as $comment) {
-            var_dump($comment);
+var_dump($comment);
             $comments[] = $this->hydrate($comment);
         }
         
         return $comments;
     }
 
-    public function create($commentClean)
-    {var_dump($commentClean);
+    public function getAllByPostId($postId) 
+    {   
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('INSERT INTO comment(id, postNumber, content, creationDate, updateDate) VALUES (?, ?, NOW(), NOW())');
-        $req->execute($commentClean['content']);
+        $req = $bdd->prepare('SELECT id, postNumber, content, creationDate, updateDate FROM comment WHERE postNumber = ?'); // formater la date dans la vue + table avec 5 champs
+        $req->execute(array($postId));
+        $result = $req->fetchAll();
 
-        return $bdd->lastInsertId();
+        $comments = [];
+        foreach ($result as $comment) {
+            $comments[] = $this->hydrate($comment);
+        }
+        
+        return $comments;
+    }
+
+    public function create($postId, $commentClean)
+    {
+var_dump($commentClean);
+        $bdd = $this->dbConnect();
+        $req = $bdd->prepare('INSERT INTO comment(postNumber, content, creationDate, updateDate) VALUES (?, ?, NOW(), NOW())');
+        $req->execute(array($postId, $commentClean['comment']));
     }
 
     public function modify($commentId)

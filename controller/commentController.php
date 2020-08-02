@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Model\CommentManager;
+
 class CommentController
 {
     private $commentClean = array();
@@ -30,10 +32,9 @@ class CommentController
     public function view($commentId)
     {
         if (!empty($this->commentClean)) {
-            $commentManager = new commentManager();
+            $commentManager = new CommentManager();
             $comment = $commentManager->getComment($commentId);
         }
-        include '../view/commentView.php';
     }
 
     //Creation nouveau
@@ -45,7 +46,7 @@ class CommentController
         if (!empty($this->commentClean) && empty($errors)) {
             var_dump(1);
             //die;
-            $commentManager = new commentManager();
+            $commentManager = new CommentManager();
             $commentId = $commentManager->create($this->commentClean);
     
             header('Location: index.php?objet=post&action=view&id=' . $postId);
@@ -60,7 +61,7 @@ class CommentController
     //Modifier un comment
     public function modify($commentId) //idem que create
     { 
-        $commentManager = new commentManager();
+        $commentManager = new CommentManager();
         $comment = $commentManager->getcomment($commentId);
 
         $this->cleanData();
@@ -78,7 +79,7 @@ class CommentController
     //Supprimer un comment
     public function delete($commentId) 
     { 
-        $commentManager = new commentManager();
+        $commentManager = new CommentManager();
         $comment = $commentManager->getcomment($commentId);
 
         if (!empty($_comment)) {
@@ -96,7 +97,7 @@ class CommentController
     //Affiche la list des comments
     public function displayAll()
     {   
-        $commentManager = new commentManager();
+        $commentManager = new CommentManager();
         $comments = $commentManager->getComments();
     }
 }

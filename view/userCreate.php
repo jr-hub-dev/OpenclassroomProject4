@@ -3,7 +3,7 @@
     <input type="text" name="userLogin" >
 
     <label for="newUser">Mot de passe</label>
-    <input type="text" name="userPassword" >
+    <input type="password" name="userPassword" >
 
     <label for="newUser">Email</label>
     <input type="email" name="userEmail" >

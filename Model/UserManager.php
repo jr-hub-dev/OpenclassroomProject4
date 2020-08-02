@@ -35,10 +35,14 @@ class UserManager extends Database
 
     public function create($userClean)
     {
-        $bdd = $this->dbConnect();
-        $req = $bdd->prepare('INSERT INTO users(userLogin, userPassword, userEmail) VALUES (?, ?, NOW(), NOW())');
-        $req->execute(array($userClean['userLogin'], $userClean['userPassword'], $userClean['userEmail']));
+        $secure_pass = password_hash($userClean['userPassword'], PASSWORD_BCRYPT);
 
+        $bdd = $this->dbConnect();
+        $req = $bdd->prepare('INSERT INTO users(userLogin, userPassword, userEmail) VALUES (?, ?, ?)');
+        $req->execute(array($userClean['userLogin'], $secure_pass, $userClean['userEmail']));
+
+var_dump($secure_pass);
+//die;
         return $bdd->lastInsertId();
     }
 
