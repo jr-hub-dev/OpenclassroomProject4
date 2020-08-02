@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Model;
-
+use DateTime;
 
 class User
 {
@@ -9,6 +9,7 @@ class User
     private $login;
     private $password;
     private $email;
+    private $creationDate;
 
 
     public function getId() : ?int 
@@ -55,6 +56,18 @@ class User
     public function setEmail(?string $email)
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getCreation() : ?DateTime 
+    {
+        return $this->creationDate;
+    }
+
+    public function setCreationDate(?DateTime $creationDate)
+    {
+        $this->creationDate = $creationDate;
 
         return $this;
     }
