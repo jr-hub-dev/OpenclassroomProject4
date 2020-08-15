@@ -33,6 +33,13 @@ class PostManager extends Database
         
         return $posts;
     }
+    public function returnLast($postId){
+        $bdd = $this->dbConnect();
+        $req = $bdd->prepare('SELECT id FROM post WHERE id=LAST_INSERT_ID();');
+        $req->execute(array($postId));
+
+        return $this->hydrate($req->fetch());
+    }
 
     public function create($postClean)
     {var_dump($postClean);

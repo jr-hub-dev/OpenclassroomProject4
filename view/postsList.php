@@ -1,3 +1,4 @@
+<a href= 'index.php?objet=post&action=create'>Ecrire un nouveau chapitre</a>
 <table>
     <tbody>
         <?php foreach($posts as $post) { ?>
