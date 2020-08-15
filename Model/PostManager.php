@@ -11,7 +11,7 @@ class PostManager extends Database
     public function getPost($postId) 
     {   
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('SELECT post_id, post_title, post_content, post_creation, updateDate FROM post WHERE post_id = ?'); // formater la date dans la vue + table avec 5 champs
+        $req = $bdd->prepare('SELECT post_id, title, content, creation, modification FROM post WHERE post_id = ?'); // formater la date dans la vue + table avec 5 champs
         $req->execute(array($postId));
 
         return $this->hydrate($req->fetch());
@@ -20,7 +20,7 @@ class PostManager extends Database
     public function getPosts() 
     {   
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('SELECT post_id, post_title, post_content, post_creation, update_date FROM post'); // formater la date dans la vue + table avec 5 champs
+        $req = $bdd->prepare('SELECT post_id, title, content, creation, modification FROM post'); // formater la date dans la vue + table avec 5 champs
         $req->execute();
         $result = $req->fetchAll();
         //var_dump($result);
@@ -37,7 +37,7 @@ class PostManager extends Database
     public function create($postClean)
     {var_dump($postClean);
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('INSERT INTO post(post_title, post_content, post_creation, update_date) VALUES (?, ?, NOW(), NOW())');
+        $req = $bdd->prepare('INSERT INTO post(title, content, creation, modification) VALUES (?, ?, NOW(), NOW())');
         $req->execute(array($postClean['title'], $postClean['content']));
 
         return $bdd->lastInsertId();
@@ -46,7 +46,7 @@ class PostManager extends Database
     public function modify($postId)
     {
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('UPDATE post SET post_title = ?, post_content = ?, update_date = NOW() WHERE post_id = ?');
+        $req = $bdd->prepare('UPDATE post SET title = ?, content = ?, modification = NOW() WHERE post_id = ?');
         
         return $req->execute(array(
             $postClean['title'] = $_POST['title'],
@@ -68,14 +68,14 @@ class PostManager extends Database
     {
         /*var_dump($data);
         var_dump(new DateTime());
-        var_dump(new DateTime($data['post_creation']));*/
+        var_dump(new DateTime($data['creation']));*/
         $post = new Post();
         $post
             ->setId($data['post_id'])
-            ->setTitle($data['post_title']) 
-            ->setContent($data['post_content'])
-            ->setCreationDate(new DateTime($data['post_creation']))
-            ->setUpdateDate(new DateTime($data['update_date']))
+            ->setTitle($data['title']) 
+            ->setContent($data['content'])
+            ->setCreationDate(new DateTime($data['creation']))
+            ->setUpdateDate(new DateTime($data['modification']))
         ;
         //var_dump($post);
         return $post;

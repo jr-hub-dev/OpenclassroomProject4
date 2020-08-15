@@ -3,8 +3,10 @@
 ?>
     
 <body>
-    <h1>Blog de </h1>
-    <p>Ceci est la page d'accueil :</p>
+    <section id="landscape">
+        <h1 id="ex">Aller simple pour l'Alaska </h1>
+        <p>Le blog de Jean Forteroche :</p>
+    </section>
     <a title="Lien vers liste de posts" href="index.php?objet=post&action=postsList">Liste des posts</a>    
 </body>
 <?php

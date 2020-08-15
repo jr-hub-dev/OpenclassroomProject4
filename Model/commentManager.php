@@ -11,7 +11,7 @@ class CommentManager extends Database
     public function getComment($commentId) 
     {   
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('SELECT id, postNumber, content, creationDate, updateDate FROM comment WHERE id = ?'); // formater la date dans la vue + table avec 5 champs
+        $req = $bdd->prepare('SELECT id, post_id, content, creation, modification FROM comment WHERE id = ?'); // formater la date dans la vue + table avec 5 champs
         $req->execute(array($commentId));
 
         return $this->hydrate($req->fetch());
@@ -20,7 +20,7 @@ class CommentManager extends Database
     public function getComments() 
     {   
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('SELECT comment_id, post_id, comment_content, comment_creation, comment_update FROM comment'); // formater la date dans la vue + table avec 5 champs
+        $req = $bdd->prepare('SELECT id, post_id, content, creation, modification FROM comment'); // formater la date dans la vue + table avec 5 champs
         $req->execute();
         $result = $req->fetchAll();
         //var_dump($result);
@@ -37,7 +37,7 @@ var_dump($comment);
     public function getAllByPostId($postId) 
     {   
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('SELECT comment_id, post_id, comment_content, comment_creation, comment_update FROM comment WHERE post_id = ?'); // formater la date dans la vue + table avec 5 champs
+        $req = $bdd->prepare('SELECT id, post_id, content, creation, modification FROM comment WHERE post_id = ?'); // formater la date dans la vue + table avec 5 champs
         $req->execute(array($postId));
         $result = $req->fetchAll();
 
@@ -53,14 +53,14 @@ var_dump($comment);
     {
 var_dump($commentClean);
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('INSERT INTO comment(post_id, comment_content, comment_creation, comment_update) VALUES (?, ?, NOW(), NOW())');
+        $req = $bdd->prepare('INSERT INTO comment(post_id, content, creation, modification) VALUES (?, ?, NOW(), NOW())');
         $req->execute(array($postId, $commentClean['comment']));
     }
 
     public function modify($commentId)
     {
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('UPDATE comment SET content = ?, comment_update = NOW() WHERE id = ?');
+        $req = $bdd->prepare('UPDATE comment SET content = ?, modification = NOW() WHERE id = ?');
         
         return $req->execute(array(
             $commentClean['content']= $_POST['content'], 
@@ -84,11 +84,11 @@ var_dump($commentClean);
         var_dump(new DateTime($data['creationDate']));*/
         $comment = new comment();
         $comment
-            ->setId($data['comment_id'])
+            ->setId($data['id'])
             ->setPostNumber($data['post_id'])
-            ->setContent($data['comment_content'])
-            ->setCreationDate(new DateTime($data['comment_creation']))
-            ->setUpdateDate(new DateTime($data['comment_update']))
+            ->setContent($data['content'])
+            ->setCreationDate(new DateTime($data['creation']))
+            ->setUpdateDate(new DateTime($data['modification']))
         ;
         //var_dump($comment);
         return $comment;
