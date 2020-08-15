@@ -3,7 +3,7 @@
 use App\Controller\Controller;
 use App\Controller\PostController;
 use App\Controller\UserController;
-//use App\Controller\CommentController;
+
 
 
 spl_autoload_register(function ($class) {
@@ -22,6 +22,9 @@ var_dump($class);
 if (!isset($_GET['action']) || 'home' === $_GET['action'] || '' === $_GET['action']) {
     $controller = new Controller; 
     $controller->home();
+    //$controller->displayLastPost();
+
+    
 //Page Post
 } elseif ('post' === $_GET['objet']) {
     $postController = new PostController;

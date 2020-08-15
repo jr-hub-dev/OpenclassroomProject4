@@ -69,6 +69,13 @@ var_dump($comments);
         $template = 'postView';
         include '../view/layout.php';
     }
+    public function displayLast($postId)
+    {   
+        $postManager = new PostManager();
+        $postManager->returnLast();
+        
+        $template = 'postView';
+    }
 
     //Creation nouveau
     public function create()
