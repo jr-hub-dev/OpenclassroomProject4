@@ -11,7 +11,7 @@ class UserManager extends Database
     public function getUser($userId) 
     {   
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('SELECT user_id, user_login, user_password, user_email, user_creation FROM user WHERE user_id = ?');
+        $req = $bdd->prepare('SELECT id, login, password, email, creation FROM user WHERE id = ?');
         $req->execute(array($userId));
 
         return $this->hydrate($req->fetch());
@@ -20,7 +20,7 @@ class UserManager extends Database
     public function getUsers() 
     {   
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('SELECT user_id, user_login, user_password, user_email, user_creation FROM user'); // formater la date dans la vue + table avec 5 champs
+        $req = $bdd->prepare('SELECT id, login, password, email, creation FROM user'); // formater la date dans la vue + table avec 5 champs
         $req->execute();
         $result = $req->fetchAll();
         //var_dump($result);
@@ -39,7 +39,7 @@ class UserManager extends Database
         $secure_pass = password_hash($userClean['userPassword'], PASSWORD_BCRYPT);
 
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('INSERT INTO user(user_login, user_password, user_email, user_creation) VALUES (?, ?, ?, NOW())');
+        $req = $bdd->prepare('INSERT INTO user(login, password, email, creation) VALUES (?, ?, ?, NOW())');
         $req->execute(array($userClean['userLogin'], $secure_pass, $userClean['userEmail']));
 
 var_dump($secure_pass);
@@ -50,7 +50,7 @@ var_dump($secure_pass);
     public function modify($userId)
     {
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('UPDATE user SET user_login = ?, user_password = ?, user_email = ? = NOW() WHERE user_id = ?');//a voir
+        $req = $bdd->prepare('UPDATE user SET login = ?, password = ?, email = ? = NOW() WHERE id = ?');//a voir
         
         return $req->execute(array(
             $userClean['userLogin'] = $_POST['userLogin'], 
@@ -64,7 +64,7 @@ var_dump($secure_pass);
     public function delete($userId)
     {
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('DELETE FROM user WHERE user_id = ?');
+        $req = $bdd->prepare('DELETE FROM user WHERE id = ?');
         
         return $req->execute(array($userId));
     }
@@ -73,14 +73,14 @@ var_dump($secure_pass);
     {
        // var_dump($data);
         /*var_dump(new DateTime());
-        var_dump(new DateTime($data['user_creation']));*/
+        var_dump(new DateTime($data['creation']));*/
         $user = new User();
         $user
-            ->setId($data['user_id'])
-            ->setLogin($data['user_login']) 
-            ->setPassword($data['user_password'])
-            ->setEmail($data['user_email'])
-            ->setCreationDate(new DateTime($data['user_creation']))
+            ->setId($data['id'])
+            ->setLogin($data['login']) 
+            ->setPassword($data['password'])
+            ->setEmail($data['email'])
+            ->setCreationDate(new DateTime($data['creation']))
         ;
 
         var_dump($user);
