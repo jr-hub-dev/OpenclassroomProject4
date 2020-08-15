@@ -11,3 +11,5 @@
     <textarea id="postContent" name="content" id="newBilletTitle"></textarea>
     <input type="submit" value="Valider" />
 </form>
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+<script>tinymce.init({selector:'textarea'});</script>
