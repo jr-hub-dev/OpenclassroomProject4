@@ -1,3 +1,3 @@
 <footer>
-    <p> Site développé par JR </p>
+    <p id="creator"> Site développé par JR </p>
 </footer>

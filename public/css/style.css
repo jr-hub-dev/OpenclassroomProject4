@@ -3,9 +3,13 @@ body{
 	padding: 0;	
     text-align: center;
 }
+
+/*Header*/
 #banniere{
     display: flex;
-    color :blue;
+    height: 100px;
+    background: rgba(32, 60, 86, 0.9);
+    color :white;
     justify-content: space-around;
 	align-items: center;
 }
@@ -14,4 +18,54 @@ body{
     width: 30%;
     list-style-type: none;
     justify-content: space-around;
+}
+
+#menu a{
+    color: white;
+}
+
+/*Page Accueil*/
+#landscape{
+    margin-top: 0;
+    width: 100%;
+    height: 1200px;
+    background-image: url('../img/alaska.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+ }
+
+#ex{
+    font-size: 50px;
+    color: white;
+}
+
+/*Page postList*/
+table{
+    margin-top: 2%;
+    width: 80%;
+    margin-left: 10%;
+    border: 2px solid black;
+    border-spacing: 5px;
+}
+
+/*Page Create post*/
+
+#form{
+    width: 80%;
+    margin-top: 5%;
+    display: block;
+}
+#title{
+    width: 100%;
+}
+#postContent{
+    width: 100%;
+    height: 400px;
+}
+
+/*Footer*/
+footer{
+    height: 50px;
+    background: rgba(32, 60, 86, 0.9);
+    color: white;
 }
