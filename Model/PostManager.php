@@ -20,7 +20,7 @@ class PostManager extends Database
     public function getPosts() 
     {   
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('SELECT post_id, title, content, creation, modification FROM post'); // formater la date dans la vue + table avec 5 champs
+        $req = $bdd->prepare('SELECT post_id, title, content, creation, modification FROM post');
         $req->execute();
         $result = $req->fetchAll();
         //var_dump($result);
@@ -33,9 +33,11 @@ class PostManager extends Database
         
         return $posts;
     }
-    public function returnLast($postId){
+
+    public function returnLast()
+    {
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('SELECT id FROM post WHERE id=LAST_INSERT_ID();');
+        $req = $bdd->prepare('SELECT post_id, title, content, creation, modification FROM post WHERE post_id=LAST_INSERT_ID();');
         $req->execute(array($postId));
 
         return $this->hydrate($req->fetch());

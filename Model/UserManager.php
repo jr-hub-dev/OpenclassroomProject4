@@ -33,6 +33,21 @@ class UserManager extends Database
         
         return $users;
     }
+    public function checkUser($userClean)
+    {
+        $userLogin = $userClean['userLogin'];
+        $userPassword = $userClean['userPassword'];
+        $bdd = $this->dbConnect();
+        $req = $bdd->prepare('SELECT id FROM user WHERE login = $userLogin');
+
+        $row = mysql_fetch_array($result);
+
+        if ($row['login'] == $userLogin && $row['password'] == $userPassword){
+            echo "login success";
+        } else {
+            echo "login error";
+        }
+    }
 
     public function create($userClean)
     {
@@ -58,7 +73,6 @@ var_dump($secure_pass);
             $userClean['userEmail'] = $_POST['userEmail'], 
             $userId
         ));
-
     }
 
     public function delete($userId)

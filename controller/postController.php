@@ -46,35 +46,31 @@ class PostController
         $postManager = new PostManager();
         $post = $postManager->getPost($postId);
 
-       // $commentController = new CommentController;
-       // $commentController->view($_GET['id']);
-       // $commentController->displayAll();
-
         $commentManager = new CommentManager;
 
         //Traitement du formulaire
         $errors = $this->cleanData();
 var_dump($this->postClean);
         if (!empty($this->postClean) && empty($errors)) {
-var_dump(1);
-//die;
+
             $commentManager->create($postId, $this->postClean);   
             
             header('Location: index.php?objet=post&action=view&id=' . $postId);
         } 
-var_dump(2);
-//die;
+
         $comments = $commentManager->getAllByPostId($postId);
 var_dump($comments);
         $template = 'postView';
         include '../view/layout.php';
     }
+
     public function displayLast($postId)
     {   
         $postManager = new PostManager();
-        $postManager->returnLast();
+        $post = $postManager->returnLast($postId);
         
-        $template = 'postView';
+        $template = 'home';
+        include '../view/postView.php';
     }
 
     //Creation nouveau
@@ -97,6 +93,13 @@ var_dump(2);
         $template = 'postCreate';
         include '../view/layout.php';
     }
+    /*public function displayLast($postId)
+    {   
+        $postManager = new PostManager();
+        $post = $postManager->returnLast($postId);
+        
+        $template = 'home';
+    }*/
 
     //Modifier un post
     public function modify($postId) //idem que create

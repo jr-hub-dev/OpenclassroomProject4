@@ -18,13 +18,18 @@ var_dump($class);
 	}
 });
 
+
 //Page d'accueil
 if (!isset($_GET['action']) || 'home' === $_GET['action'] || '' === $_GET['action']) {
     $controller = new Controller; 
     $controller->home();
-    //$controller->displayLastPost();
 
-    
+    /*$postController = new PostController();     //a voir
+    $postController->displayLast($_GET['id']);*/
+   
+    $userController = new userController();     //a voir
+    $userController->checkUser();
+
 //Page Post
 } elseif ('post' === $_GET['objet']) {
     $postController = new PostController;
