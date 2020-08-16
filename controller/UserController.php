@@ -33,6 +33,7 @@ class UserController
     //die();
         return $errors;
     }
+    
 
     public function view($userId)
     {
@@ -43,24 +44,39 @@ class UserController
         include '../view/layout.php';
     }
 
+    public function checkUser()
+    {   
+        if (!empty($this->userClean)) {
+            if ('' === $this->userClean['userLogin']) {       
+                $errors[] = 'Veuillez entrer le titre du post';
+            } elseif (strlen($this->userClean['userLogin']) < 5) {
+                $errors[] = 'Votre login doit faire plus de 5 lettres';
+            }
+            if ('' === $this->userClean['userPassword']) {
+                $errors[] = 'Veuillez entrer un mot de passe';
+            }
+
+            $userManager = new UserManager();
+            $userManager-> checkUser($userId);
+            $template = 'header.php';
+        }
+    }
+
     //Creation nouveau
     public function create()
-        { 
-            $errors = $this->cleanData();
-            var_dump($this->userClean);
-            if (!empty($this->userClean) && empty($errors)) {
-                var_dump(1);
-                //die;
-                $userManager = new UserManager();
-                $userId = $userManager->create($this->userClean);
-        
-                header('Location: index.php?objet=user&action=view&id=' . $userId);
-            } 
-            var_dump(2);
-           //die;
-        
-            $template = 'userCreate';
-            include '../view/layout.php';
+    { 
+        $errors = $this->cleanData();
+
+        if (!empty($this->userClean) && empty($errors)){
+
+            $userManager = new UserManager();
+            $userId = $userManager->create($this->userClean);
+    
+            header('Location: index.php?objet=user&action=view&id=' . $userId);
+        } 
+    
+        $template = 'userCreate';
+        include '../view/layout.php';
     }
 
     //Modifier un user
