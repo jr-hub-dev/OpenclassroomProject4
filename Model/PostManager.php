@@ -37,7 +37,7 @@ class PostManager extends Database
     public function returnLast()
     {
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('SELECT post_id, title, content, creation, modification FROM post WHERE post_id=2;'); //rechercher avec MAX(id)
+        $req = $bdd->prepare('SELECT post_id, title, content, creation, modification FROM post WHERE post_id = ( SELECT MAX(post_id) FROM post );');
         $req->execute(array());
 
         return $this->hydrate($req->fetch());
