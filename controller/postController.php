@@ -64,20 +64,12 @@ var_dump($comments);
         include '../view/layout.php';
     }
 
-    public function displayLast($postId)
-    {   
-        $postManager = new PostManager();
-        $post = $postManager->returnLast($postId);
-        
-        $template = 'home';
-        include '../view/postView.php';
-    }
-
     //Creation nouveau
     public function create()
     {
+        //verifier que user a les droits
         //Traitement du formulaire
-        $errors = $this->cleanData();
+        $errors = $this->cleanData(); //mm principe pour login dans le header
 var_dump($this->postClean);
         if (!empty($this->postClean) && empty($errors)) {
 var_dump(1);
