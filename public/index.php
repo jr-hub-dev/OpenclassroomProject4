@@ -24,13 +24,7 @@ if (!isset($_GET['action']) || 'home' === $_GET['action'] || '' === $_GET['actio
     $controller = new Controller; 
     $controller->home();
 
-    /*$postController = new PostController();     //a voir
-    $postController->displayLast($_GET['id']);*/
-   
-    $userController = new userController();     //a voir
-    $userController->checkUser();
-
-//Page Post
+    //Page Post
 } elseif ('post' === $_GET['objet']) {
     $postController = new PostController;
     if ('view' === $_GET['action']) {        
