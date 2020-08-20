@@ -42,7 +42,7 @@ class UserManager extends Database
 
         $row = mysql_fetch_array($result);
 
-        if ($row['login'] == $userLogin && $row['password'] == $userPassword){
+        if ($row['login'] == $userLogin && $row['password'] == $userPassword){ //if ($result)?
             echo "login success";
         } else {
             echo "login error";
