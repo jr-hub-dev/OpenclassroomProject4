@@ -44,7 +44,7 @@ class UserController
         include '../view/layout.php';
     }
 
-    public function checkUser()
+    /*public function checkUser()
     {   
         if (!empty($this->userClean)) {
             if ('' === $this->userClean['userLogin']) {       
@@ -60,7 +60,7 @@ class UserController
             $userManager-> checkUser($userId);
             $template = 'header.php';
         }
-    }
+    }*/
 
     //Creation nouveau
     public function create()
