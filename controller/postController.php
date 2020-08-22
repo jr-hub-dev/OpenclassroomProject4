@@ -34,8 +34,6 @@ class PostController
                 }
             }
         }  
-    //var_dump($this->postClean);
-    //die();
         return $errors;
     }
 
@@ -47,10 +45,10 @@ class PostController
         $post = $postManager->getPost($postId);
 
         $commentManager = new CommentManager;
-
+        
         //Traitement du formulaire
         $errors = $this->cleanData();
-var_dump($this->postClean);
+
         if (!empty($this->postClean) && empty($errors)) {
 
             $commentManager->create($postId, $this->postClean);   
@@ -59,39 +57,92 @@ var_dump($this->postClean);
         } 
 
         $comments = $commentManager->getAllByPostId($postId);
-var_dump($comments);
+        if(isset($_POST['Signalez'])){
+            $alert = new CommentManager;
+            $alert = $commentManager->alert();
+        }
+
         $template = 'postView';
         include '../view/layout.php';
     }
+
+   /* public function view($postId)
+    {
+        $postManager = new PostManager();
+        $post = $postManager->getPost($postId);
+
+        if (isset($_POST["Ajouter"])){   
+            $errors = $this->cleanData();
+            if (!empty($this->postClean) && empty($errors)) {
+
+                $commentManager->create($postId, $this->postClean);   
+                
+                header('Location: index.php?objet=post&action=view&id=' . $postId);
+            } 
+    
+            $comments = $commentManager->getAllByPostId($postId);
+        }
+        if (isset($_POST["Signaler"])){
+                $alert = new CommentManager;
+                $alert = $commentManager->alert();            
+        }
+        
+    $template = 'postView';
+    include '../view/layout.php';
+}*/
+
+    /*public function view($postId)
+    {
+        $postManager = new PostManager();
+        $post = $postManager->getPost($postId);
+
+        switch (Submittype)
+        {
+            case "Ajouter":
+                {   
+                    $errors = $this->cleanData();
+                    if (!empty($this->postClean) && empty($errors)) {
+
+                        $commentManager->create($postId, $this->postClean);   
+                        
+                        header('Location: index.php?objet=post&action=view&id=' . $postId);
+                    } 
+            
+                    $comments = $commentManager->getAllByPostId($postId);
+                    break;
+                }
+            case "Signaler":
+                {
+                    $alert = new CommentManager;
+                    $alert = $commentManager->alert();
+                    
+                    break;
+                }
+        }
+        
+    $template = 'postView';
+    include '../view/layout.php';
+}*/
 
     //Creation nouveau
     public function create()
     {
         //verifier que user a les droits
         //Traitement du formulaire
-        $errors = $this->cleanData(); //mm principe pour login dans le header
-var_dump($this->postClean);
+        $errors = $this->cleanData(); 
+
         if (!empty($this->postClean) && empty($errors)) {
-var_dump(1);
-//die;
+
             $postManager = new PostManager();
             $postId = $postManager->create($this->postClean);
     
             header('Location: index.php?objet=post&action=view&id=' . $postId);
         } 
-var_dump(2);
-//die;
+
         //Affichage du formulaire
         $template = 'postCreate';
         include '../view/layout.php';
     }
-    /*public function displayLast($postId)
-    {   
-        $postManager = new PostManager();
-        $post = $postManager->returnLast($postId);
-        
-        $template = 'home';
-    }*/
 
     //Modifier un post
     public function modify($postId) //idem que create
