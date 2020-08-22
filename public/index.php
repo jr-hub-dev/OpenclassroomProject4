@@ -53,4 +53,7 @@ if (!isset($_GET['action']) || 'home' === $_GET['action'] || '' === $_GET['actio
     elseif ('create' === $_GET['action']) {        
         $userController->create();
     }
+    elseif ('login' === $_GET['action']) {        
+        $userController->checkUser();
+    }
 }
