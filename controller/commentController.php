@@ -16,7 +16,7 @@ class CommentController
             $this->commentClean = filter_var_array($_POST, FILTER_SANITIZE_STRING);
             if (!empty($this->commentClean)) {
                 if (strlen($this->commentClean['content']) < 5) {
-                    $errors[] = 'Votre titre doit faire plus de 5 lettres';
+                    $errors[] = 'Votre commentaire doit faire plus de 5 lettres';
                 } elseif ('' === $this->commentClean['content']) {
                     $errors[] = 'Veuillez entrer un contenu';
                 }
