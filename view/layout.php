@@ -1,8 +1,3 @@
-<?php
-session_start();
-extract($_POST);
-$login
-?>
 <!DOCTYPE html>
 <html>
     <head>
