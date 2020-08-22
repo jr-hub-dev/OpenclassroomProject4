@@ -49,9 +49,12 @@ var_dump($comment);
         return $comments;
     }
 
+    public function alert($commentId){
+        var_dump('test');
+    }
+
     public function create($postId, $commentClean)
     {
-var_dump($commentClean);
         $bdd = $this->dbConnect();
         $req = $bdd->prepare('INSERT INTO comment(post_id, content, creation, modification) VALUES (?, ?, NOW(), NOW())');
         $req->execute(array($postId, $commentClean['comment']));
