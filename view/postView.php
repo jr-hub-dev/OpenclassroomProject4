@@ -1,20 +1,24 @@
 <h1>
-    Titre : <?php echo htmlspecialchars($post->getTitle()); ?>
+    Titre : <?php echo $post->getTitle(); ?>
 </h1>
-<p>
-    Contenu : <?php echo htmlspecialchars($post->getContent()); ?>
+
+    Contenu : <?php echo $post->getContent(); ?>
     Date de création :<?php echo $post->getCreationDate()->format('d/m/Y H:i:s'); ?>
-</p>
 
 <form method="post">
-    <label for="comment">Contenu</label>
+    <label for="comment">Commentaire</label>
     <textarea name="comment" id="comment"></textarea>
-    <input type="submit" value="Ajouter" />
+    <input type="submit" name="Ajouter" value="Ajouter" />
 </form>
-
-<?php foreach ($comments as $comment) { ?>
-    <p>
-        <?php  echo $comment->getContent(); ?>
-    </p>
-<?php } ?>
-
+<form method="post">
+    <table>
+        <tbody>
+            <?php foreach ($comments as $comment) { ?>
+                <tr>
+                    <td><?php  echo $comment->getContent(); ?></td>
+                    <td><input type="submit" name="Signaler" value="Signaler"<?php echo $comment->getId();?>></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</form>

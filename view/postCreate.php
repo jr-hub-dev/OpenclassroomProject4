@@ -2,6 +2,7 @@
     foreach($errors as $error){
         echo $error .'<br/>';
     }
+    require_once('tiny.php');
 ?>
 <form id="form" method="post">
     <label for="newBilletTitle">Titre du chapitre</label>
@@ -11,5 +12,4 @@
     <textarea id="postContent" name="content" id="newBilletTitle"></textarea>
     <input type="submit" value="Valider" />
 </form>
-<script src="http://cloud.tinymce.com/stable/tinymce.min.js?apiKey=4m7auxcdz1rf5ukur3vjcxmehp4ct0sipvfcfaepgabstrjj"></script> 
-<script>tinymce.init({selector:'textarea#postContent'});</script>
+
