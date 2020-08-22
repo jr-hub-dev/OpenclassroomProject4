@@ -33,21 +33,38 @@ class UserManager extends Database
         
         return $users;
     }
-    public function checkUser($userClean)
-    {
-        $userLogin = $userClean['userLogin'];
-        $userPassword = $userClean['userPassword'];
-        $bdd = $this->dbConnect();
-        $req = $bdd->prepare('SELECT id FROM user WHERE login = $userLogin');
-
-        $row = mysql_fetch_array($result);
-
-        if ($row['login'] == $userLogin && $row['password'] == $userPassword){ //if ($result)?
-            echo "login success";
-        } else {
-            echo "login error";
+    public function checkUser($userClean){
+        $login = 'jerome';
+        $password = 'passe';
+        
+        if(isset($userClean) && !empty($userClean['login']) && !empty($userClean['password'])){
+            if(($userClean['login'])=== $login && ($userClean['password'])=== $password){
+                session_start();
+                session_status(1);
+                echo 'Authentifié';
+            } else{
+                header ('location: index.php?action=home');
+            }
         }
+
     }
+    /*public function checkUser($userClean)
+    { 
+        //$userLogin = $userClean['userLogin'];
+        //$userPassword = $userClean['userPassword'];
+        $bdd = $this->dbConnect();
+        $req = $bdd->prepare('SELECT id, login, password, email, creation FROM user WHERE login = $userLogin AND password = $userPassword');
+        $req->execute(array($userClean));
+        //$row = mysqli_fetch_array($req) or die(mysqli_error($bdd));
+        $row = mysqli_query($bdd,$req);
+        while ($row=mysqli_fetch_array($req)){
+            if ($row['login'] == $userClean['login'] && $row['password'] == $userClean['userPassword']){ //if ($result)?
+                echo "login ok";
+            } else {
+                echo "login error";
+            }
+        }
+    }*/
 
     public function create($userClean)
     {
