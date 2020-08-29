@@ -33,38 +33,69 @@ class UserManager extends Database
         
         return $users;
     }
-    public function checkUser($userClean){
-        $login = 'jerome';
-        $password = 'passe';
-        
-        if(isset($userClean) && !empty($userClean['login']) && !empty($userClean['password'])){
-            if(($userClean['login'])=== $login && ($userClean['password'])=== $password){
-                session_start();
-                session_status(1);
-                echo 'Authentifié';
-            } else{
-                header ('location: index.php?action=home');
-            }
-        }
 
-    }
     /*public function checkUser($userClean)
-    { 
-        //$userLogin = $userClean['userLogin'];
-        //$userPassword = $userClean['userPassword'];
+    {   $loginClean = $userClean['userLogin'];
+        $passwordClean = $userClean['userPassword'];
+
+        $secure_pass = password_hash($passwordClean, PASSWORD_BCRYPT);  
+        var_dump($secure_pass);
+        die
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('SELECT id, login, password, email, creation FROM user WHERE login = $userLogin AND password = $userPassword');
-        $req->execute(array($userClean));
-        //$row = mysqli_fetch_array($req) or die(mysqli_error($bdd));
-        $row = mysqli_query($bdd,$req);
-        while ($row=mysqli_fetch_array($req)){
-            if ($row['login'] == $userClean['login'] && $row['password'] == $userClean['userPassword']){ //if ($result)?
-                echo "login ok";
-            } else {
-                echo "login error";
-            }
-        }
+        $req = $bdd ->prepare ('SELECT id, login, password FROM user WHERE login = $loginClean AND password = $secure_pass');
+        
+        $req->execute(array(
+            $loginClean => 'login', 
+            $secure_pass => 'password',
+       ));
+        $resultat = $req->fetch();
+
+    //var_dump($resultat);
+        //die;
+        $isPasswordCorrect = password_verify($secure_pass, $resultat['password']);
+        var_dump($secure_pass);
+
+        if (!$resultat){
+            var_dump('non');
+            echo 'Mauvais identifiant ou mot de passe !';
+        }else{
+            if ($isPasswordCorrect) {
+            var_dump('ok');
+            die;
+                session_start();
+                $_SESSION['id'] = $resultat['id'];
+                $_SESSION['userLogin'] = $login;
+                $_SESSION['userPassword'] = $password;
+            }            
+        }        
     }*/
+    public function checkUser($userClean)
+    {   
+        $login = "jerome";
+        $password = "jerome";   //stocker le hash puis pass hash et pass verify
+        $secure_pass = password_hash($userClean['userLogin'], PASSWORD_BCRYPT);
+    var_dump(password_hash($password, $secure_pass));
+    var_dump(password_hash($password)); //password verify
+    // if (password_verify($password, $secure_pass)) {
+    //     var_dump('Le mot de passe est valide !');
+    // } else {
+    //     var_dump('Le mot de passe n est pas valide !');
+    // }
+
+    if ($userClean['userLogin'] === $login && password_verify($password, $secure_pass)) {            
+        $_SESSION['userLogin'] = $login;
+        var_dump('Tout est ok !');
+        
+        return true;                    
+    }  
+    var_dump('Mauvais login ou mot de passe');         
+    }
+    
+    public function logout(){
+        session_destroy();
+        var_dump('session fermée');
+        die;
+    }
 
     public function create($userClean)
     {
@@ -74,8 +105,6 @@ class UserManager extends Database
         $req = $bdd->prepare('INSERT INTO user(login, password, email, creation) VALUES (?, ?, ?, NOW())');
         $req->execute(array($userClean['userLogin'], $secure_pass, $userClean['userEmail']));
 
-var_dump($secure_pass);
-//die;
         return $bdd->lastInsertId();
     }
 
