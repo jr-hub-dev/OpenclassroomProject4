@@ -3,7 +3,9 @@
 use App\Controller\Controller;
 use App\Controller\PostController;
 use App\Controller\UserController;
+use App\Controller\UserManager;
 
+session_start();
 
 
 spl_autoload_register(function ($class) {

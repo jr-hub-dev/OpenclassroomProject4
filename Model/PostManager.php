@@ -44,7 +44,7 @@ class PostManager extends Database
     }
 
     public function create($postClean)
-    {var_dump($postClean);
+    {
         $bdd = $this->dbConnect();
         $req = $bdd->prepare('INSERT INTO post(title, content, creation, modification) VALUES (?, ?, NOW(), NOW())');
         $req->execute(array($postClean['title'], $postClean['content']));
@@ -75,9 +75,6 @@ class PostManager extends Database
 
     public function hydrate($data)
     {
-        /*var_dump($data);
-        var_dump(new DateTime());
-        var_dump(new DateTime($data['creation']));*/
         $post = new Post();
         $post
             ->setId($data['post_id'])

@@ -8,7 +8,7 @@
 <form method="post">
     <label for="comment">Commentaire</label>
     <textarea name="comment" id="comment"></textarea>
-    <input type="submit" name="Ajouter" value="Ajouter" />
+    <input type="submit" name="Ajouter" value="Ajouter">
 </form>
 <form method="post">
     <table>
