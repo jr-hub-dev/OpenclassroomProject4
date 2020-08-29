@@ -73,16 +73,9 @@ class UserManager extends Database
     {   
         $login = "jerome";
         $password = "jerome";   //stocker le hash puis pass hash et pass verify
-        $secure_pass = password_hash($userClean['userLogin'], PASSWORD_BCRYPT);
-    var_dump(password_hash($password, $secure_pass));
-    var_dump(password_hash($password)); //password verify
-    // if (password_verify($password, $secure_pass)) {
-    //     var_dump('Le mot de passe est valide !');
-    // } else {
-    //     var_dump('Le mot de passe n est pas valide !');
-    // }
-
-    if ($userClean['userLogin'] === $login && password_verify($password, $secure_pass)) {            
+        $secure_pass = password_hash($password, PASSWORD_BCRYPT);
+        
+    if ($userClean['userLogin'] === $login && password_verify($userClean['userPassword'], $secure_pass)) {            
         $_SESSION['userLogin'] = $login;
         var_dump('Tout est ok !');
         
