@@ -8,73 +8,73 @@ class CommentController
 {
     private $commentClean = array();
 
-    public function cleanData()
-    {   
-        $errors = [];
+    // public function cleanData()
+    // {   
+    //     $errors = [];
 
-        if (!empty($_POST)) {  
-            $this->commentClean = filter_var_array($_POST, FILTER_SANITIZE_STRING);
-            if (!empty($this->commentClean)) {
-                if (strlen($this->commentClean['content']) < 5) {
-                    $errors[] = 'Votre commentaire doit faire plus de 5 lettres';
-                } elseif ('' === $this->commentClean['content']) {
-                    $errors[] = 'Veuillez entrer un contenu';
-                }
-            }
-        }  
-    //var_dump($this->commentClean);
-    //die();
-        return $errors;
-    }
+    //     if (!empty($_POST())) {  
+    //         $this->commentClean = filter_var_array($_POST, FILTER_SANITIZE_STRING);
+    //         if (!empty($this->commentClean)) {
+    //             if (strlen($this->commentClean['content']) < 5) {
+    //                 $errors[] = 'Votre commentaire doit faire plus de 5 lettres';
+    //             } elseif ('' === $this->commentClean['content']) {
+    //                 $errors[] = 'Veuillez entrer un contenu';
+    //             }
+    //         }
+    //     }  
+    // //var_dump($this->commentClean);
+    // //die();
+    //     return $errors;
+    // }
 
 
-    //Afficher vue
-    public function view($commentId)
-    {
-        if (!empty($this->commentClean)) {
-            $commentManager = new CommentManager();
-            $comment = $commentManager->getComment($commentId);
-        }
-    }
+    // //Afficher vue
+    // public function view($commentId)
+    // {
+    //     if (!empty($this->commentClean)) {
+    //         $commentManager = new CommentManager();
+    //         $comment = $commentManager->getComment($commentId);
+    //     }
+    // }
 
-    //Creation nouveau
-    public function create()
-    {
-        //Traitement du formulaire
-        $errors = $this->cleanData();
-        var_dump($this->commentClean);
-        if (!empty($this->commentClean) && empty($errors)) {
-            var_dump(1);
-            //die;
-            $commentManager = new CommentManager();
-            $commentId = $commentManager->create($this->commentClean);
+    // //Creation nouveau
+    // public function create()
+    // {
+    //     //Traitement du formulaire
+    //     $errors = $this->cleanData();
+    //     var_dump($this->commentClean);
+    //     if (!empty($this->commentClean) && empty($errors)) {
+    //         var_dump(1);
+    //         //die;
+    //         $commentManager = new CommentManager();
+    //         $commentManager->create($this->commentClean);
     
-            header('Location: index.php?objet=post&action=view&id=' . $postId);
-        } 
-        var_dump(2);
-        //die;
-        //Affichage du formulaire
-        $template = 'postCreate';
-        include '../view/layout.php';
-    }
+    //         header('Location: index.php?objet=post&action=view&id=' . $postId);
+    //     } 
+    //     var_dump(2);
+    //     //die;
+    //     //Affichage du formulaire
+    //     $template = 'postCreate';
+    //     include '../view/layout.php';
+    // }
 
-    //Modifier un comment
-    public function modify($commentId) //idem que create
-    { 
-        $commentManager = new CommentManager();
-        $comment = $commentManager->getcomment($commentId);
+    // //Modifier un comment
+    // public function modify($commentId) //idem que create
+    // { 
+    //     $commentManager = new CommentManager();
+    //     $comment = $commentManager->getcomment($commentId);
 
-        $this->cleanData();
+    //     $this->cleanData();
  
-        if (!empty($this->commentClean)) {
-            if ($commentManager->modify($commentId)) {
-                header('Location: index.php?objet=post&action=view&id=' . $postId);                    
-            }            
-        }
+    //     if (!empty($this->commentClean)) {
+    //         if ($commentManager->modify($commentId)) {
+    //             header('Location: index.php?objet=post&action=view&id=' . $postId);                    
+    //         }            
+    //     }
 
-        $template = 'postModify';
-        include '../view/layout.php';
-    }
+    //     $template = 'postModify';
+    //     include '../view/layout.php';
+    // }
 
     //Supprimer un comment
     public function delete($commentId) 

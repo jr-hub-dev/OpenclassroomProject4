@@ -49,9 +49,13 @@ var_dump($comment);
         return $comments;
     }
 
-    public function alert($commentId){
-        var_dump('test');
-    }
+    public function alert()
+    {
+        $bdd = $this->dbConnect();
+        $req = $bdd->prepare('UPDATE comment SET alert = alert + 1 WHERE id= ?');
+        
+        return $req->execute(array($_POST['Signaler']));
+        }
 
     public function create($postId, $commentClean)
     {
@@ -82,9 +86,6 @@ var_dump($comment);
 
     public function hydrate($data)
     {
-        /*var_dump($data);
-        var_dump(new DateTime());
-        var_dump(new DateTime($data['creationDate']));*/
         $comment = new comment();
         $comment
             ->setId($data['id'])
