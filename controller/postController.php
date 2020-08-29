@@ -27,7 +27,7 @@ class PostController
                 echo 'Veuillez entrer un contenu';
             }else{
                 $postManager = new PostManager();
-                $postId = $postManager->create(filter_var($_POST['title'], FILTER_SANITIZE_STRING), $_POST['content']);
+                $postId = $postManager->create($_POST['title'], $_POST['content']);
 
                 header('Location: index.php?objet=post&action=view&id=' . $postId);
             }
