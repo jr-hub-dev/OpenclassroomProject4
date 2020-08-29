@@ -4,10 +4,10 @@ namespace App\Model;
 
 use DateTime;
 
-class Post
+class Comment
 {
     private $id;
-    private $title;
+    private $postNumber;
     private $content;
     private $creationDate;
     private $updateDate;
@@ -24,16 +24,15 @@ class Post
 
         return $this;
     }
-    
-    public function getTitle() : ?string //a utilisre dans la vue
+
+    public function getPostNumber() : ?int //a utilisre dans la vue
     {
-        return $this->title;
+        return $this->postNumber;
     }
 
-
-    public function setTitle(?string $title) : self //string ou nul
+    public function setPostNumber(?int $postNumber) : self //int ou nul
     {
-        $this->title = $title;
+        $this->id = $postNumber;
 
         return $this;
     }

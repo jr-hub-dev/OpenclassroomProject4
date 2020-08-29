@@ -2,14 +2,10 @@
 
 use App\Controller\Controller;
 use App\Controller\PostController;
+use App\Controller\UserController;
+use App\Controller\UserManager;
 
-
-//spl_autoload_register
-//routeur - si index.php tel conttroller si autre autre controller
-    //appel du controller
-        //requete base de donnée -> hydratation objet -> sera renvoyer à la vue
-        //appel de la vue -> methode GET
-        //renvoi vue + objet
+session_start();
 
 
 spl_autoload_register(function ($class) {
@@ -20,16 +16,17 @@ spl_autoload_register(function ($class) {
     	require_once($class);
     } else {
     //throw new CustomException('Erreur interne de chargement');
-    	var_dump($class);
-        
+var_dump($class);        
 	}
 });
+
 
 //Page d'accueil
 if (!isset($_GET['action']) || 'home' === $_GET['action'] || '' === $_GET['action']) {
     $controller = new Controller; 
     $controller->home();
-//Page Post
+
+    //Page Post
 } elseif ('post' === $_GET['objet']) {
     $postController = new PostController;
     if ('view' === $_GET['action']) {        
@@ -47,5 +44,18 @@ if (!isset($_GET['action']) || 'home' === $_GET['action'] || '' === $_GET['actio
     //Affiche liste des posts
     elseif ('postsList' === $_GET['action']) {
         $postController->displayAll();
+    }
+
+} elseif ('user' === $_GET['objet']) {
+    $userController = new UserController;
+    if ('view' === $_GET['action']) {        
+        $userController->view($_GET['id']);
+    }
+    //Creation du user
+    elseif ('create' === $_GET['action']) {        
+        $userController->create();
+    }
+    elseif ('login' === $_GET['action']) {        
+        $userController->checkUser();
     }
 }
