@@ -1,4 +1,6 @@
 body{
+    width: 100%;
+    height: 100%;
 	margin: 0;
 	padding: 0;	
     text-align: center;
@@ -7,6 +9,7 @@ body{
 /*Header*/
 #banniere{
     display: flex;
+    width: 100%;
     height: 100px;
     background: rgba(32, 60, 86, 0.9);
     color :white;
@@ -27,17 +30,26 @@ body{
 /*Page Accueil*/
 #landscape{
     margin-top: 0;
-    padding-top: 2%;
     width: 100%;
     height: 610px;
-    background-image: url('../img/alaskaFinal.png');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+ }
+ #welcome{
+     position: absolute;
+     font-size: 50px;
+     top: 25%;
+     left: 40%
+ }
+ #image{
+     width: 100%;
+     height: 100%;
  }
 
 #ex{
     margin: 0;
+    position: absolute;
+    top : 40%;
     font-size: 50px;
+    left: 35%;
     color: white;
 }
 
@@ -67,6 +79,9 @@ table{
 
 /*Footer*/
 footer{
+    position: relative;
+    bottom: 0;
+    width: 100%;
     height: 50px;
     background: rgba(32, 60, 86, 0.9);
     color: white;
