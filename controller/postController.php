@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\PostManager;
 use App\Model\CommentManager;
+use App\Model\USerManager;
 
 class PostController
 {
@@ -56,10 +57,10 @@ var_dump($errors);
         $post = $postManager->getPost($postId);
 
         $commentManager = new CommentManager;
-        if(isset($_POST)){
+        if(isset($_POST["Signaler"])){
             var_dump('ok');
             $commentManager = new CommentManager;
-            $commentManager->alert();
+            $commentManager->alert($alert);
         }
         
         
@@ -199,13 +200,15 @@ var_dump($errors);
         $postManager = new PostManager();
         $posts = $postManager->getPosts();
 
-        if(!empty($POST)){
-            $userManager = new UserManager();
-            $userManager->logout();
-            var_dump('testr');
+        // if(isset($_POST['logout'])){
+        //     $userManager = new UserManager();
+        //     $userManager->logout();
+        //     var_dump('testr');
+        //     die;
+        //     exit;
 
-            header('Location: index.php?zction=home');
-        }
+        //     header('Location: index.php?zction=home');
+        // }
 
         $template = 'postsList';
         include '../view/layout.php';
