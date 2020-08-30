@@ -58,4 +58,7 @@ if (!isset($_GET['action']) || 'home' === $_GET['action'] || '' === $_GET['actio
     elseif ('login' === $_GET['action']) {        
         $userController->checkUser();
     }
+    elseif ('logout' === $_GET['action']) {        
+        $userController->logout();
+    }
 }
