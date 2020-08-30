@@ -164,9 +164,9 @@ var_dump($errors);
         $postManager = new PostManager();
         $post = $postManager->getPost($postId);
 
-        $this->cleanData();
+        $errors = $this->cleanData();
  
-        if (!empty($this->postClean)) {
+        if (!empty($this->postClean) && empty($errors)) {
             if ($postManager->modify($postId)) {
                 header('Location: index.php?objet=post&action=view&id=' . $postId);                    
             }            

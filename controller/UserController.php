@@ -55,6 +55,14 @@ class UserController
         $template = 'loginPage';
         include '../view/layout.php';
     }
+    public function logout() //juste check
+    {   
+        $userManager = new UserManager;
+        $userManager->logout();
+
+        $template = 'logoutPage';
+        include '../view/layout.php';
+    }
 
 
     //Creation nouveau
