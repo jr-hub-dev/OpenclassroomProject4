@@ -71,16 +71,28 @@ class UserManager extends Database
     }*/
     public function checkUser($userClean)
     {   
-        $login = "jerome";
-        $password = "jerome";   //stocker le hash puis pass hash et pass verify
+        $login = "admin";
+        $password = "admin";   //stocker le hash puis pass hash et pass verify
         $secure_pass = password_hash($password, PASSWORD_BCRYPT);
+        $level = "admin";
+        
+        $login2 = "userr";
+        $password2 = "user";   //stocker le hash puis pass hash et pass verify
+        $secure_pass2 = password_hash($password2, PASSWORD_BCRYPT);
+        $level2 = "user";
 var_dump($secure_pass);
         
         if ($userClean['userLogin'] === $login && password_verify($userClean['userPassword'], $secure_pass)) {            
             $_SESSION['userLogin'] = $login;
-            echo 'Tout est ok !';
-            
-            return true;                    
+            $_SESSION['userLevel'] = $level;
+
+            var_dump($_SESSION['userLevel']);
+                               
+        }elseif ($userClean['userLogin'] === $login2 && password_verify($userClean['userPassword'], $secure_pass2)) { 
+            $_SESSION['userLogin'] = $login;
+            $_SESSION['userLevel'] = $level2;
+
+            var_dump($_SESSION['userLevel']);
         }else{
             echo 'Mauvais login ou mot de passe';        
         }
@@ -88,8 +100,8 @@ var_dump($secure_pass);
     
     public function logout(){
         session_destroy();
+        //$_COOKIE['PHPSESSID'] = '';
         var_dump('session fermée');
-        die;
     }
 
     public function create($userClean)
