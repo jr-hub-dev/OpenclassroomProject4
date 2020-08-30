@@ -1,14 +1,13 @@
-<a href= 'index.php?objet=post&action=create'>Ecrire un nouveau chapitre</a>
-
 <?php
-if($_SESSION['userLevel'] ="admin" && $_SESSION['userLevel'] ="user");
+//if($_SESSION['userLevel'] ="admin" && $_SESSION['userLevel'] ="admin");
 
 
 if(array_key_exists('userLogin', $_SESSION)){//a mettre devant la ligne concern√©e
     var_dump('you are logged in');
     var_dump($_SESSION['userLogin']);
-    var_dump($_SESSION['level']);
+    var_dump($_SESSION['userLevel']);
     ?>  
+    <a href= 'index.php?objet=post&action=create'>Ecrire un nouveau chapitre</a>
     <table>
         <tbody>
             <?php foreach($posts as $post) { ?>
@@ -17,7 +16,7 @@ if(array_key_exists('userLogin', $_SESSION)){//a mettre devant la ligne concern√
                     <td><a href="index.php?objet=post&action=view&id=<?php echo $post->getId(); ?>" title="modifier <?php echo $post->getTitle(); ?> - <?php echo $post->getId(); ?>"><?php echo $post->getTitle();?></a></td>
                     <td><?php echo $post->getContent(); ?></td>
                     <td><?php echo $post->getId(); ?></td>
-                    <?php if($_SESSION['level'] = 'admin');?><td><a href="index.php?objet=post&action=modify&id=<?php echo $post->getId(); ?>" title="modifier <?php echo $post->getTitle(); ?> - <?php echo $post->getId(); ?>">Modifier</a></td>
+                    <?php if($_SESSION['userLevel'] = 'admin');?><td><a href="index.php?objet=post&action=modify&id=<?php echo $post->getId(); ?>" title="modifier <?php echo $post->getTitle(); ?> - <?php echo $post->getId(); ?>">Modifier</a></td>
                     <td><a href="index.php?objet=post&action=delete&id=<?php echo $post->getId(); ?>" title="supprimer <?php echo $post->getTitle(); ?> - <?php echo $post->getId(); ?>">Supprimer</a></td>
                 </tr>
             <?php } ?>
@@ -28,7 +27,8 @@ if(array_key_exists('userLogin', $_SESSION)){//a mettre devant la ligne concern√
         <a href="index.php?objet=user&action=logout">Logout</a>
     </form
 <?php } else{
-    var_dump('you are not logged in');
+    echo 'Vous devez vous identifier pour acc√©der √† cette page';?></br>
+    <?php echo '<a  href="index.php?objet=user&action=login">Se connecter</a>';
     session_destroy();
 }       
 ?>
