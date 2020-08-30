@@ -200,16 +200,6 @@ var_dump($errors);
         $postManager = new PostManager();
         $posts = $postManager->getPosts();
 
-        // if(isset($_POST['logout'])){
-        //     $userManager = new UserManager();
-        //     $userManager->logout();
-        //     var_dump('testr');
-        //     die;
-        //     exit;
-
-        //     header('Location: index.php?zction=home');
-        // }
-
         $template = 'postsList';
         include '../view/layout.php';
     }
