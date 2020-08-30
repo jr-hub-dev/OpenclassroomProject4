@@ -49,12 +49,13 @@ var_dump($comment);
         return $comments;
     }
 
-    public function alert()
-    {
-        $bdd = $this->dbConnect();
-        $req = $bdd->prepare('UPDATE comment SET alert = alert + 1 WHERE id= ?');
+    public function alert($alert)
+    {   
         
-        return $req->execute(array($_POST['Signaler']));
+        $bdd = $this->dbConnect();
+        $req = $bdd->prepare('INSERT INTO comment(alert) VALUES(:alert)');
+        
+        $req->execute('alert');
         }
 
     public function create($postId, $commentClean)

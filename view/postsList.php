@@ -21,10 +21,11 @@ if(array_key_exists('userLogin', $_SESSION)){ //a mettre devant la ligne concern
             <?php } ?>
         </tbody>
     </table>
-    <form method="post" >
-        <input type="submit" value="Se déconnecter">
+    <form method="post">
+        <input type="submit" value="logout">
     </form
 <?php } else{
     var_dump('you are not logged in');
+    session_destroy();
 }       
 ?>
