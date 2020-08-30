@@ -87,11 +87,15 @@ var_dump($secure_pass2);
             $_SESSION['userLogin'] = $login;
             $_SESSION['userLevel'] = $level;
 
+            header('Location: index.php?action=home');
+
 var_dump($_SESSION['userLevel']);
                                
         }elseif ($userClean['userLogin'] === $login2 && password_verify($userClean['userPassword'], $secure_pass2)) { 
             $_SESSION['userLogin'] = $login2;
             $_SESSION['userLevel'] = $level2;
+
+            header('Location: index.php?action=home');
 
 var_dump($_SESSION['userLevel']);
         }else{

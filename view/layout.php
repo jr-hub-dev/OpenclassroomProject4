@@ -12,7 +12,7 @@
     <?php
         require_once('header.php');
     ?>
-    <?php include $template . '.php'; ?><br/>
+    <?php include $template . '.php'; ?>
     <?php
         require_once('footer.php');
     ?>
