@@ -67,12 +67,13 @@ class UserController
 
     //Creation nouveau
     public function create()
-    { 
-        $errors = $this->cleanData();
+    {         $errors = $this->cleanData(); 
 
-        if (!empty($this->userClean) && empty($errors)){
-
-            
+        if (!empty($this->userClean) && empty($errors)) {
+            /*var_dump($this->postClean);
+            die;*/
+            $userManager = new UserManager();
+            $userId = $userManager->create($this->userClean);
     
             header('Location: index.php?objet=user&action=view&id=' . $userId);
         } 
