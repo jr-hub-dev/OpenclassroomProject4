@@ -8,6 +8,12 @@ class CommentController
 {
     private $commentClean = array();
 
+    public function alert($commentId)
+    {
+        $commentManager = new CommentManager();
+        $commentManager->alert($commentId);
+    }
+
     // public function cleanData()
     // {   
     //     $errors = [];

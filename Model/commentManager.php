@@ -49,14 +49,14 @@ var_dump($comment);
         return $comments;
     }
 
-    public function alert($alert)
+    public function alert($commentId)
     {   
         
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('INSERT INTO comment(alert) VALUES(:alert)');
+        $req = $bdd->prepare('UPDATE comment SET alert = true WHERE id = ?');
         
-        $req->execute('alert');
-        }
+        $req->execute(array($commentId));
+    }
 
     public function create($postId, $commentClean)
     {
@@ -95,7 +95,7 @@ var_dump($comment);
             ->setCreationDate(new DateTime($data['creation']))
             ->setUpdateDate(new DateTime($data['modification']))
         ;
-        //var_dump($comment);
-        return $comment;
+
+        return $comment;    
     }
 }

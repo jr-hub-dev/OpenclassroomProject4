@@ -2,8 +2,8 @@
 
 use App\Controller\Controller;
 use App\Controller\PostController;
+use App\Controller\CommentController;
 use App\Controller\UserController;
-use App\Controller\UserManager;
 
 session_start();
 
@@ -61,4 +61,9 @@ if (!isset($_GET['action']) || 'home' === $_GET['action'] || '' === $_GET['actio
     elseif ('logout' === $_GET['action']) {        
         $userController->logout();
     }
+}elseif ('comment' === $_GET['objet']) {
+    $commentController = new CommentController;
+    if ('alert' === $_GET['action']) {
+        $commentController->alert($_GET['id']);
+    }        
 }

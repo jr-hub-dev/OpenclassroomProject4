@@ -13,10 +13,10 @@
 <form method="post">
     <table>
         <tbody>
-            <?php foreach ($comments as $comment) { ?>
+            <?php foreach ($comments as $comment) { ?> 
                 <tr>
                     <td><?php  echo $comment->getContent(); ?></td>
-                    <td><input type="submit" name="Signaler" value="Signaler"<?php echo $comment->getId();?>></td>
+                    <td><a href="index.php?objet=comment&action=alert&id=<?php echo $comment->getId(); ?>">Signaler</a></td>
                 </tr>
             <?php } ?>
         </tbody>

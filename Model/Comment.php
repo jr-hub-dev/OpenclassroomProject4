@@ -32,7 +32,7 @@ class Comment
 
     public function setPostNumber(?int $postNumber) : self //int ou nul
     {
-        $this->id = $postNumber;
+        $this->postNumber = $postNumber;
 
         return $this;
     }
