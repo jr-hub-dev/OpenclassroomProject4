@@ -34,41 +34,42 @@ class UserManager extends Database
         return $users;
     }
 
-    /*public function checkUser($userClean)
-    {   $loginClean = $userClean['userLogin'];
-        $passwordClean = $userClean['userPassword'];
+//     public function checkUser($userClean)
+//     {   $loginClean = $userClean['userLogin'];
+//         $passwordClean = $userClean['userPassword'];
+//         $basepass = password_hash('admin', PASSWORD_BCRYPT);
+//         $basepass2 = password_hash('user', PASSWORD_BCRYPT);
 
-        $secure_pass = password_hash($passwordClean, PASSWORD_BCRYPT);  
-        var_dump($secure_pass);
-        die
-        $bdd = $this->dbConnect();
-        $req = $bdd ->prepare ('SELECT id, login, password FROM user WHERE login = $loginClean AND password = $secure_pass');
+//         $secure_pass = password_hash($userClean['userPassword'], PASSWORD_BCRYPT);  
+//         var_dump($secure_pass);
+//         //die;
+//         $bdd = $this->dbConnect();
+//         $req = $bdd ->prepare ('SELECT id, login, is_admin FROM user WHERE login = $loginClean');
         
-        $req->execute(array(
-            $loginClean => 'login', 
-            $secure_pass => 'password',
-       ));
-        $resultat = $req->fetch();
+//         $req->execute($userClean);
+//         $resultat = $req->fetch();
 
-    //var_dump($resultat);
-        //die;
-        $isPasswordCorrect = password_verify($secure_pass, $resultat['password']);
-        var_dump($secure_pass);
+//     var_dump($resultat);
+//         //die;
+//         if ($loginClean === $resultat('login') && password_verify($passwordClean, $basepass)) {            
+//             $_SESSION['userLogin'] = $login;
+//             $_SESSION['userLevel'] = $level;
 
-        if (!$resultat){
-            var_dump('non');
-            echo 'Mauvais identifiant ou mot de passe !';
-        }else{
-            if ($isPasswordCorrect) {
-            var_dump('ok');
-            die;
-                session_start();
-                $_SESSION['id'] = $resultat['id'];
-                $_SESSION['userLogin'] = $login;
-                $_SESSION['userPassword'] = $password;
-            }            
-        }        
-    }*/
+//             header('Location: index.php?action=home');
+
+// var_dump($_SESSION['userLevel']);
+                               
+//         }elseif ($userClean['userLogin'] === $resultat('login') && password_verify($passwordClean, $basepass2)) { 
+//             $_SESSION['userLogin'] = $userClean['userLogin'];
+//             $_SESSION['userLevel'] = $level2;
+
+//             header('Location: index.php?action=home');
+
+// var_dump($_SESSION['userLevel']);
+//         }else{
+//             echo 'Mauvais login ou mot de passe';        
+//         }
+//     }
     public function checkUser($userClean)
     {   
         $login = "admin";

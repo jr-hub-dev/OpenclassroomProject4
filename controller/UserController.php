@@ -67,7 +67,8 @@ class UserController
 
     //Creation nouveau
     public function create()
-    {         $errors = $this->cleanData(); 
+    {   
+        $errors = $this->cleanData(); 
 
         if (!empty($this->userClean) && empty($errors)) {
             /*var_dump($this->postClean);

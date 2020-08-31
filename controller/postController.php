@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Model\PostManager;
 use App\Model\CommentManager;
-use App\Model\USerManager;
+use App\Model\UserManager;
 
 class PostController
 {
@@ -56,88 +56,23 @@ var_dump($errors);
         $postManager = new PostManager();
         $post = $postManager->getPost($postId);
 
-        $commentManager = new CommentManager;
-        if(isset($_POST["Signaler"])){
-            var_dump('ok');
-            $commentManager = new CommentManager;
-            $commentManager->alert($alert);
-        }
-        
-        
+            
         //Traitement du formulaire
         $errors = $this->cleanData();
         if (!empty($this->commentClean) && empty($errors)) {
-
+            
             $commentManager->create($postId, $this->postClean);   
             
             header('Location: index.php?objet=post&action=view&id=' . $postId);           
         } 
-
-        $comments = $commentManager->getAllByPostId($postId);        
+        $commentManager = new CommentManager();
+        $comments = $commentManager->getAllByPostId($postId);
         
         $template = 'postView';
         include '../view/layout.php';
     }
 
-   /* public function view($postId)
-    {
-        $postManager = new PostManager();
-        $post = $postManager->getPost($postId);
-
-        if (isset($_POST["Ajouter"])){   
-            $errors = $this->cleanData();
-            if (!empty($this->postClean) && empty($errors)) {
-
-                $commentManager->create($postId, $this->postClean);   
-                
-                header('Location: index.php?objet=post&action=view&id=' . $postId);
-            } 
-    
-            $comments = $commentManager->getAllByPostId($postId);
-        }
-        if (isset($_POST["Signaler"])){
-                $alert = new CommentManager;
-                $alert = $commentManager->alert();            
-        }
-        
-    $template = 'postView';
-    include '../view/layout.php';
-}*/
-
-    /*public function view($postId)
-    {
-        $postManager = new PostManager();
-        $post = $postManager->getPost($postId);
-
-        switch (Submittype)
-        {
-            case "Ajouter":
-                {   
-                    $errors = $this->cleanData();
-                    if (!empty($this->postClean) && empty($errors)) {
-
-                        $commentManager->create($postId, $this->postClean);   
-                        
-                        header('Location: index.php?objet=post&action=view&id=' . $postId);
-                    } 
-            
-                    $comments = $commentManager->getAllByPostId($postId);
-                    break;
-                }
-            case "Signaler":
-                {
-                    $alert = new CommentManager;
-                    $alert = $commentManager->alert();
-                    
-                    break;
-                }
-        }
-        
-    $template = 'postView';
-    include '../view/layout.php';
-}*/
-
-    //Creation nouveau
+     //Creation nouveau
     public function create()
     {
         //verifier que user a les droits
