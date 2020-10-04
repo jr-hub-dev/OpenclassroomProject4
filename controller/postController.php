@@ -83,7 +83,12 @@ class PostController
         ->isAdmin();*/
         $userManager = new UserManager();
         $admin = $userManager->isAdmin();
+<<<<<<< HEAD
     var_dump($admin);        
+=======
+        var_dump($admin);
+  
+>>>>>>> dev
         if($admin === "admin"){
             $template = 'postCreate';
             include '../view/layout.php';

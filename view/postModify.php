@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 if ($admin === "admin"){
     foreach($errors as $error){
         echo $error .'<br/>';

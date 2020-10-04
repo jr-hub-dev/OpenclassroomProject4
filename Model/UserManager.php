@@ -101,6 +101,10 @@ var_dump($_SESSION['userLevel']);
             echo 'Mauvais login ou mot de passe';        
         }
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev
     function isAdmin()
 {
     //Si la sesssion existe
@@ -113,7 +117,11 @@ var_dump($_SESSION['userLevel']);
         }
         //Si l'utilisateur est simple utilisateur
         if ($_SESSION['userLevel'] ==="user"){
+<<<<<<< HEAD
 var_dump($_SESSION['userLevel']);
+=======
+
+>>>>>>> dev
             return "user";
         }
     }
