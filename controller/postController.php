@@ -12,14 +12,16 @@ class PostController
     private $commentClean = array();
 
     public function cleanData()
-    {   
+    {
         $errors = [];
-        if (!empty($_POST)) {  
+        if (!empty($_POST)) {
+
+            //Filtrage des entrées clavier
             $this->postClean = filter_var_array($_POST, FILTER_SANITIZE_STRING);
 
             if (!empty($this->postClean)) {
                 if (array_key_exists('title', $this->postClean)) {
-                    if ('' === $this->postClean['title']) {       
+                    if ('' === $this->postClean['title']) {
                         $errors[] = 'Veuillez entrer le titre du post';
                     } elseif (strlen($this->postClean['title']) < 5) {
                         $errors[] = 'Votre titre doit faire plus de 5 lettres';
@@ -47,95 +49,104 @@ class PostController
         $postManager = new PostManager();
         $post = $postManager->getPost($postId);
 
-            
+
         //Traitement du formulaire
         $errors = $this->cleanData();
         $commentManager = new CommentManager();
         if (!empty($this->commentClean) && empty($errors)) {
-            
-            $commentManager->create($postId, $this->postClean);   
-            
-            header('Location: index.php?objet=post&action=view&id=' . $postId);           
-        } 
-        
+
+            $commentManager->create($postId, $this->postClean);
+
+            header('Location: index.php?objet=post&action=view&id=' . $postId);
+        }
+
         $comments = $commentManager->getAllByPostId($postId);
-        
+
         $template = 'postView';
         include '../view/layout.php';
     }
 
-     //Creation nouveau chapitre
+    //Creation nouveau chapitre
     public function create()
     {
-        $errors = $this->cleanData(); 
+        $errors = $this->cleanData();
 
         //Vérifie que le post n'est pas vide et ne contient pas d'erreurs
         if (!empty($this->postClean) && empty($errors)) {
             $postManager = new PostManager();
             $postId = $postManager->create($this->postClean);
-    
-            header('Location: index.php?objet=post&action=view&id=' . $postId);
-        } 
 
-        //Affichage du formulaire // appelle new userManager
-        //if
-        /*$admin = userManager
-        ->isAdmin();*/
+            header('Location: index.php?objet=post&action=view&id=' . $postId);
+        }
+
+        //Affichage du formulaire de création si droits admin
         $userManager = new UserManager();
         $admin = $userManager->isAdmin();
-<<<<<<< HEAD
-    var_dump($admin);        
-=======
-        var_dump($admin);
-  
->>>>>>> dev
-        if($admin === "admin"){
+
+        if ($admin === "admin") {
             $template = 'postCreate';
             include '../view/layout.php';
-        }elseif($admin === "user") { 
+        } elseif ($admin === "user") {
             echo 'Vous devez être administrateur pour accéder à cette page';
-            }
+        }
     }
 
     //Modifier un post
     public function modify($postId) //idem que create
-    { 
-        $postManager = new PostManager();
-        $post = $postManager->getPost($postId);
+    {
+        //Affichage du formulaire de modification si droits admin
+        $userManager = new UserManager();
+        $admin = $userManager->isAdmin();
 
-        $errors = $this->cleanData();
- 
-        if (!empty($this->postClean) && empty($errors)) {
-            if ($postManager->modify($postId)) {
-                header('Location: index.php?objet=post&action=view&id=' . $postId);                    
-            }            
+        if ($admin === "admin") {
+
+            $postManager = new PostManager();
+            $post = $postManager->getPost($postId);
+
+            $errors = $this->cleanData();
+
+            if (!empty($this->postClean) && empty($errors)) {
+                if ($postManager->modify($postId)) {
+                    header('Location: index.php?objet=post&action=view&id=' . $postId);
+                }
+            }
+
+            $template = 'postModify';
+            include '../view/layout.php';
+        } elseif ($admin === "user") {
+            echo 'Vous devez être administrateur pour accéder à cette page';
         }
-
-        $template = 'postModify';
-        include '../view/layout.php';
     }
 
     //Supprimer un post
-    public function delete($postId) 
-    { 
-        $postManager = new PostManager();
-        $post = $postManager->getPost($postId);
+    public function delete($postId)
+    {
+        //Affichage du formulaire de suppression si droits admin
+        $userManager = new UserManager();
+        $admin = $userManager->isAdmin();
 
-        if (!empty($_POST)) {
-            if ($postManager->delete($postId)) {
-                header('Location: index.php');
-                exit;
+        if ($admin === "admin") {
+            $postManager = new PostManager();
+            $post = $postManager->getPost($postId);
+
+            if (!empty($_POST)) {
+                if ($postManager->delete($postId)) {
+                    header('Location: index.php');
+                    exit;
+                }
+                header('Location: index.php?objet=post&action=delete&id=' . $postId);
             }
-            header('Location: index.php?objet=post&action=delete&id=' . $postId);            
-        }
 
-        $template = 'postDelete';
-        include '../view/layout.php';
+            $template = 'postDelete';
+            include '../view/layout.php';
+        } elseif ($admin === "user") {
+            echo 'Vous devez être administrateur pour accéder à cette page';
+        }
     }
 
-    //Affiche la list des posts
+    //Affiche la liste des posts
     public function displayAll()
-    {   
+    {
         $postManager = new PostManager();
         $posts = $postManager->getPosts();
 
