@@ -14,22 +14,14 @@ class PostController
     public function cleanData()
     {   
         $errors = [];
-//var_dump($_POST);
         if (!empty($_POST)) {  
             $this->postClean = filter_var_array($_POST, FILTER_SANITIZE_STRING);
-var_dump($this->postClean);
+
             if (!empty($this->postClean)) {
-var_dump('test');
-                //Verification de title
-                // var_dump(array_key_exists('title', $this->postClean));
-                // var_dump($this->postClean['title'], $this->postClean['content']);
                 if (array_key_exists('title', $this->postClean)) {
-var_dump('1');
                     if ('' === $this->postClean['title']) {       
-var_dump('3');
                         $errors[] = 'Veuillez entrer le titre du post';
                     } elseif (strlen($this->postClean['title']) < 5) {
-var_dump('2');
                         $errors[] = 'Votre titre doit faire plus de 5 lettres';
                     }
                 }
@@ -44,8 +36,7 @@ var_dump('2');
                 }
             }
         }
-var_dump($errors);       
-//die;
+
         return $errors;
     }
 
@@ -59,38 +50,47 @@ var_dump($errors);
             
         //Traitement du formulaire
         $errors = $this->cleanData();
+        $commentManager = new CommentManager();
         if (!empty($this->commentClean) && empty($errors)) {
             
             $commentManager->create($postId, $this->postClean);   
             
             header('Location: index.php?objet=post&action=view&id=' . $postId);           
         } 
-        $commentManager = new CommentManager();
+        
         $comments = $commentManager->getAllByPostId($postId);
         
         $template = 'postView';
         include '../view/layout.php';
     }
 
-     //Creation nouveau
+     //Creation nouveau chapitre
     public function create()
     {
-        //verifier que user a les droits
-        //Traitement du formulaire
         $errors = $this->cleanData(); 
 
+        //Vérifie que le post n'est pas vide et ne contient pas d'erreurs
         if (!empty($this->postClean) && empty($errors)) {
-            /*var_dump($this->postClean);
-            die;*/
             $postManager = new PostManager();
             $postId = $postManager->create($this->postClean);
     
             header('Location: index.php?objet=post&action=view&id=' . $postId);
         } 
 
-        //Affichage du formulaire
-        $template = 'postCreate';
-        include '../view/layout.php';
+        //Affichage du formulaire // appelle new userManager
+        //if
+        /*$admin = userManager
+        ->isAdmin();*/
+        $userManager = new UserManager();
+        $admin = $userManager->isAdmin();
+        var_dump($admin);
+  
+        if($admin === "admin"){
+            $template = 'postCreate';
+            include '../view/layout.php';
+        }elseif($admin === "user") { 
+            echo 'Vous devez être administrateur pour accéder à cette page';
+            }
     }
 
     //Modifier un post

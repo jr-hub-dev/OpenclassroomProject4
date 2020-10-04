@@ -103,6 +103,26 @@ var_dump($_SESSION['userLevel']);
             echo 'Mauvais login ou mot de passe';        
         }
     }
+
+    function isAdmin()
+{
+    //Si la sesssion existe
+    if (array_key_exists('userLevel', $_SESSION)){
+
+        //Si l'utilisateur est bien administrateur
+        if ($_SESSION['userLevel'] ==="admin"){
+
+            return "admin";
+        }
+        //Si l'utilisateur est simple utilisateur
+        if ($_SESSION['userLevel'] ==="user"){
+
+            return "user";
+        }
+    }
+
+    return false;
+}
     
     public function logout(){
         session_destroy();
