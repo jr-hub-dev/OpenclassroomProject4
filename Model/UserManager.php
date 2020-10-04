@@ -76,16 +76,14 @@ class UserManager extends Database
         $password = "admin";   //stocker le hash puis pass hash et pass verify
         $secure_pass = password_hash($password, PASSWORD_BCRYPT);
         $level = "admin";
-var_dump($secure_pass);
         
         $login2 = "userr";
         $password2 = "user";   //stocker le hash puis pass hash et pass verify
         $secure_pass2 = password_hash($password2, PASSWORD_BCRYPT);
         $level2 = "user";
-var_dump($secure_pass2);
         
         if ($userClean['userLogin'] === $login && password_verify($userClean['userPassword'], $secure_pass)) {            
-            $_SESSION['userLogin'] = $login;
+            $_SESSION['userLogin'] = $login; //voir pour faire un tableau user avec login et level
             $_SESSION['userLevel'] = $level;
 
             header('Location: index.php?action=home');
@@ -103,6 +101,25 @@ var_dump($_SESSION['userLevel']);
             echo 'Mauvais login ou mot de passe';        
         }
     }
+    function isAdmin()
+{
+    //Si la sesssion existe
+    if (array_key_exists('userLevel', $_SESSION)){
+
+        //Si l'utilisateur est bien administrateur
+        if ($_SESSION['userLevel'] ==="admin"){
+
+            return "admin";
+        }
+        //Si l'utilisateur est simple utilisateur
+        if ($_SESSION['userLevel'] ==="user"){
+var_dump($_SESSION['userLevel']);
+            return "user";
+        }
+    }
+
+    return false;
+}
     
     public function logout(){
         session_destroy();

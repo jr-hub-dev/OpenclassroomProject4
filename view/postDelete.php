@@ -1,4 +1,7 @@
-<form method="post">
+<?php
+if ($admin === "admin"){
+?>
+    <form method="post">
     <label for='newBilletTitle'>Titre du chapitre</label>
     <input type='text' name='title' id='newBilletTitle' value="<?php if (isset($post)) echo $post->getTitle(); ?>" disabled="disabled">
 
@@ -7,3 +10,4 @@
     <input type="hidden" name="delete" value="delete" />
     <input type="submit" value="Valider" />
 </form>
+<?php } ?>
