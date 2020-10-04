@@ -6,10 +6,10 @@ use App\Model\Database;
 use DateTime;
 
 class UserManager extends Database
-{ 
+{
 
-    public function getUser($userId) 
-    {   
+    public function getUser($userId)
+    {
         $bdd = $this->dbConnect();
         $req = $bdd->prepare('SELECT id, login, password, email, creation FROM user WHERE id = ?');
         $req->execute(array($userId));
@@ -17,121 +17,82 @@ class UserManager extends Database
         return $this->hydrate($req->fetch());
     }
 
-    public function getUsers() 
-    {   
+    public function getUsers()
+    {
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('SELECT id, login, password, email, creation FROM user'); // formater la date dans la vue + table avec 5 champs
+        $req = $bdd->prepare('SELECT id, login, password, email, creation FROM user');
         $req->execute();
         $result = $req->fetchAll();
-        //var_dump($result);
 
         $users = [];
         foreach ($result as $user) {
-            //var_dump($post);
             $users[] = $this->hydrate($user);
         }
-        
+
         return $users;
     }
 
-//     public function checkUser($userClean)
-//     {   $loginClean = $userClean['userLogin'];
-//         $passwordClean = $userClean['userPassword'];
-//         $basepass = password_hash('admin', PASSWORD_BCRYPT);
-//         $basepass2 = password_hash('user', PASSWORD_BCRYPT);
-
-//         $secure_pass = password_hash($userClean['userPassword'], PASSWORD_BCRYPT);  
-//         var_dump($secure_pass);
-//         //die;
-//         $bdd = $this->dbConnect();
-//         $req = $bdd ->prepare ('SELECT id, login, is_admin FROM user WHERE login = $loginClean');
-        
-//         $req->execute($userClean);
-//         $resultat = $req->fetch();
-
-//     var_dump($resultat);
-//         //die;
-//         if ($loginClean === $resultat('login') && password_verify($passwordClean, $basepass)) {            
-//             $_SESSION['userLogin'] = $login;
-//             $_SESSION['userLevel'] = $level;
-
-//             header('Location: index.php?action=home');
-
-// var_dump($_SESSION['userLevel']);
-                               
-//         }elseif ($userClean['userLogin'] === $resultat('login') && password_verify($passwordClean, $basepass2)) { 
-//             $_SESSION['userLogin'] = $userClean['userLogin'];
-//             $_SESSION['userLevel'] = $level2;
-
-//             header('Location: index.php?action=home');
-
-// var_dump($_SESSION['userLevel']);
-//         }else{
-//             echo 'Mauvais login ou mot de passe';        
-//         }
-//     }
     public function checkUser($userClean)
-    {   
+    {
+        //Définition des logs pour administrateur
         $login = "admin";
-        $password = "admin";   //stocker le hash puis pass hash et pass verify
+        $password = "admin";   
         $secure_pass = password_hash($password, PASSWORD_BCRYPT);
         $level = "admin";
-var_dump($secure_pass);
-        
+
+        //Définition des logs pour simple utilisateur
         $login2 = "userr";
-        $password2 = "user";   //stocker le hash puis pass hash et pass verify
+        $password2 = "user";   
         $secure_pass2 = password_hash($password2, PASSWORD_BCRYPT);
         $level2 = "user";
-var_dump($secure_pass2);
-        
-        if ($userClean['userLogin'] === $login && password_verify($userClean['userPassword'], $secure_pass)) {            
+
+        //Vérification des login et mots de passe
+        if ($userClean['userLogin'] === $login && password_verify($userClean['userPassword'], $secure_pass)) {
             $_SESSION['userLogin'] = $login;
             $_SESSION['userLevel'] = $level;
 
             header('Location: index.php?action=home');
 
-var_dump($_SESSION['userLevel']);
-                               
-        }elseif ($userClean['userLogin'] === $login2 && password_verify($userClean['userPassword'], $secure_pass2)) { 
+        } elseif ($userClean['userLogin'] === $login2 && password_verify($userClean['userPassword'], $secure_pass2)) {
             $_SESSION['userLogin'] = $login2;
             $_SESSION['userLevel'] = $level2;
 
             header('Location: index.php?action=home');
 
-var_dump($_SESSION['userLevel']);
-        }else{
-            echo 'Mauvais login ou mot de passe';        
+        } else {
+            echo 'Mauvais login ou mot de passe';
         }
     }
 
     function isAdmin()
-{
-    //Si la sesssion existe
-    if (array_key_exists('userLevel', $_SESSION)){
+    {
+        //Si la sesssion existe
+        if (array_key_exists('userLevel', $_SESSION)) {
 
-        //Si l'utilisateur est bien administrateur
-        if ($_SESSION['userLevel'] ==="admin"){
+            //Si l'utilisateur est bien administrateur
+            if ($_SESSION['userLevel'] === "admin") {
 
-            return "admin";
+                return "admin";
+            }
+            //Si l'utilisateur est simple utilisateur
+            if ($_SESSION['userLevel'] === "user") {
+
+                return "user";
+            }
         }
-        //Si l'utilisateur est simple utilisateur
-        if ($_SESSION['userLevel'] ==="user"){
 
-            return "user";
-        }
+        return false;
     }
 
-    return false;
-}
-    
-    public function logout(){
+    public function logout()
+    {
         session_destroy();
-        //$_COOKIE['PHPSESSID'] = '';
-        var_dump('session fermée');
+        $_SESSION = [];
     }
-
+    
     public function create($userClean)
     {
+        //Cryptage du mot de passe
         $secure_pass = password_hash($userClean['userPassword'], PASSWORD_BCRYPT);
 
         $bdd = $this->dbConnect();
@@ -144,12 +105,12 @@ var_dump($_SESSION['userLevel']);
     public function modify($userId)
     {
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('UPDATE user SET login = ?, password = ?, email = ? = NOW() WHERE id = ?');//a voir
-        
+        $req = $bdd->prepare('UPDATE user SET login = ?, password = ?, email = ? = NOW() WHERE id = ?');
+
         return $req->execute(array(
-            $userClean['userLogin'] = $_POST['userLogin'], 
-            $userClean['userPassword']= $_POST['userPassword'], 
-            $userClean['userEmail'] = $_POST['userEmail'], 
+            $userClean['userLogin'] = $_POST['userLogin'],
+            $userClean['userPassword'] = $_POST['userPassword'],
+            $userClean['userEmail'] = $_POST['userEmail'],
             $userId
         ));
     }
@@ -158,25 +119,20 @@ var_dump($_SESSION['userLevel']);
     {
         $bdd = $this->dbConnect();
         $req = $bdd->prepare('DELETE FROM user WHERE id = ?');
-        
+
         return $req->execute(array($userId));
     }
 
     public function hydrate($data)
     {
-       // var_dump($data);
-        /*var_dump(new DateTime());
-        var_dump(new DateTime($data['creation']));*/
         $user = new User();
         $user
             ->setId($data['id'])
-            ->setLogin($data['login']) 
+            ->setLogin($data['login'])
             ->setPassword($data['password'])
             ->setEmail($data['email'])
-            ->setCreationDate(new DateTime($data['creation']))
-        ;
+            ->setCreationDate(new DateTime($data['creation']));
 
-        var_dump($user);
         return $user;
     }
 }
