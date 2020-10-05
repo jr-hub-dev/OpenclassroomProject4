@@ -84,12 +84,14 @@ class UserManager extends Database
         return false;
     }
 
+    //Fonction de déconnexion
     public function logout()
     {
         session_destroy();
         $_SESSION = [];
     }
     
+    //Fonction pour création nouvel utilisateur
     public function create($userClean)
     {
         //Cryptage du mot de passe
@@ -114,7 +116,7 @@ class UserManager extends Database
             $userId
         ));
     }
-
+    //Fonction du suppression utilisateur
     public function delete($userId)
     {
         $bdd = $this->dbConnect();
@@ -123,6 +125,7 @@ class UserManager extends Database
         return $req->execute(array($userId));
     }
 
+    //Hydratation de l'objet utilisateur
     public function hydrate($data)
     {
         $user = new User();
