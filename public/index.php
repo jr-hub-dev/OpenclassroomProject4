@@ -15,8 +15,7 @@ spl_autoload_register(function ($class) {
     if (is_file($class)) {
     	require_once($class);
     } else {
-    //throw new CustomException('Erreur interne de chargement');
-var_dump($class);        
+    //throw new CustomException('Erreur interne de chargement');       
 	}
 });
 
