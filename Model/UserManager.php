@@ -36,13 +36,13 @@ class UserManager extends Database
     {
         //Définition des logs pour administrateur
         $login = "admin";
-        $password = "admin";   
+        $password = "admin";
         $secure_pass = password_hash($password, PASSWORD_BCRYPT);
         $level = "admin";
 
         //Définition des logs pour simple utilisateur
         $login2 = "userr";
-        $password2 = "user";   
+        $password2 = "user";
         $secure_pass2 = password_hash($password2, PASSWORD_BCRYPT);
         $level2 = "user";
 
@@ -52,13 +52,11 @@ class UserManager extends Database
             $_SESSION['userLevel'] = $level;
 
             header('Location: index.php?action=home');
-
         } elseif ($userClean['userLogin'] === $login2 && password_verify($userClean['userPassword'], $secure_pass2)) {
             $_SESSION['userLogin'] = $login2;
             $_SESSION['userLevel'] = $level2;
 
             header('Location: index.php?action=home');
-
         } else {
             echo 'Mauvais login ou mot de passe';
         }
@@ -94,7 +92,7 @@ class UserManager extends Database
         session_destroy();
         $_SESSION = [];
     }
-    
+
     //Fonction pour création nouvel utilisateur
     public function create($userClean)
     {

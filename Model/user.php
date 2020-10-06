@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Model;
+
 use DateTime;
 
 class User
@@ -12,42 +13,42 @@ class User
     private $creationDate;
 
 
-    public function getId() : ?int 
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setId(?int $id) : self 
+    public function setId(?int $id): self
     {
         $this->id = $id;
 
         return $this;
     }
-    
-    public function getLogin() : ?string 
+
+    public function getLogin(): ?string
     {
         return $this->login;
     }
 
-    public function setLogin(?string $login) : self 
+    public function setLogin(?string $login): self
     {
         $this->login = $login;
 
         return $this;
     }
 
-    public function getPassword() : ?string 
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function setPassword(?string $password) : self 
+    public function setPassword(?string $password): self
     {
         $this->password = $password;
 
         return $this;
     }
-    public function getEmail() : ?string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -59,7 +60,7 @@ class User
         return $this;
     }
 
-    public function getCreation() : ?DateTime 
+    public function getCreation(): ?DateTime
     {
         return $this->creationDate;
     }

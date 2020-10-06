@@ -1,11 +1,10 @@
 <?php
-
-if ($admin === "admin"){
-    foreach($errors as $error){
-        echo $error .'<br/>';
+if ($admin === "admin") {
+    foreach ($errors as $error) {
+        echo $error . '<br/>';
     }
     require_once('tiny.php');
-?>
+    ?>
     <form class="postUpdate" method='post'>
         <input type='text' name='title' id='newBilletTitle' value="<?php if (isset($post)) echo $post->getTitle(); ?>">
 

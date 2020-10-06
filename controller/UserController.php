@@ -14,12 +14,12 @@ class UserController
     {
         $errors = [];
 
-        if (!empty($_POST)) {  
+        if (!empty($_POST)) {
             $this->userClean = filter_var_array($_POST, FILTER_SANITIZE_STRING);
             if (!empty($this->userClean)) {
                 //Verification du login
                 if (array_key_exists('userLogin', $this->userClean)) {
-                    if ('' === $this->userClean['userLogin']) {       
+                    if ('' === $this->userClean['userLogin']) {
                         $errors[] = 'Veuillez entrer un login';
                     } elseif (strlen($this->userClean['userLogin']) < 5) {
                         $errors[] = 'Votre login doit faire plus de 5 lettres';
@@ -30,9 +30,9 @@ class UserController
                     $errors[] = 'Veuillez entrer un mot de passe';
                 }
             }
-        }  
+        }
         return $errors;
-    }    
+    }
 
     public function view($userId)
     {
@@ -44,7 +44,7 @@ class UserController
     }
 
     public function checkUser() //juste check
-    {   
+    {
         $errors = $this->cleanData();
 
         if (!empty($this->userClean) && empty($errors)) {
@@ -56,7 +56,7 @@ class UserController
         include '../view/layout.php';
     }
     public function logout() //juste check
-    {   
+    {
         $userManager = new UserManager;
         $userManager->logout();
 
@@ -67,25 +67,24 @@ class UserController
 
     //Creation nouveau
     public function create()
-    {   
-        $errors = $this->cleanData(); 
+    {
+        $errors = $this->cleanData();
 
         if (!empty($this->userClean) && empty($errors)) {
-            /*var_dump($this->postClean);
-            die;*/
+
             $userManager = new UserManager();
             $userId = $userManager->create($this->userClean);
-    
+
             header('Location: index.php?objet=user&action=view&id=' . $userId);
-        } 
-    
+        }
+
         $template = 'userCreate';
         include '../view/layout.php';
     }
 
     //Modifier un user
     public function modify($userId)
-    { 
+    {
         $userManager = new UserManager();
         $user = $userManager->getUser($userId);
 
@@ -94,28 +93,10 @@ class UserController
         if (!empty($_POST)) {
             if ($userManager->modify($userId)) {
                 header('Location: index.php?objet=user&action=view&id=' . $userId);
-            }            
+            }
         }
 
         $template = 'userModify';
-        include '../view/layout.php';
-    }
-
-    //Supprimer un post
-    public function delete($postId) 
-    { 
-        $usertManager = new UserManager();
-        $post = $postManager->getUser($UserId);
-
-        if (!empty($_POST)) {
-            if ($userManager->delete($userId)) {
-                header('Location: index.php');
-                exit;
-            }
-            header('Location: index.php?objet=user&action=delete&id=' . $userId);            
-        }
-
-        $template = 'userDelete';
         include '../view/layout.php';
     }
 }

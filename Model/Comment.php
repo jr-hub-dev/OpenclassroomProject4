@@ -25,7 +25,7 @@ class Comment
         return $this;
     }
 
-    public function getPostNumber() : ?int //a utilisre dans la vue
+    public function getPostNumber() : ?int //a utiliser dans la vue
     {
         return $this->postNumber;
     }
@@ -37,7 +37,7 @@ class Comment
         return $this;
     }
 
-    public function getContent() : ?string //a utilisre dans la vue
+    public function getContent() : ?string //a utiliser dans la vue
     {
         return $this->content;
     }
@@ -48,7 +48,7 @@ class Comment
 
         return $this;
     }
-    public function getCreationDate() : ?DateTime //a utilisre dans la vue
+    public function getCreationDate() : ?DateTime //a utiliser dans la vue
     {
         return $this->creationDate;
     }
@@ -59,7 +59,7 @@ class Comment
 
         return $this;
     }
-    public function getUpdateDate() : ?DateTime //a utilisre dans la vue
+    public function getUpdateDate() : ?DateTime //a utiliser dans la vue
     {
         return $this->updateDate;
     }
