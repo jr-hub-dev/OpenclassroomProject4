@@ -12,10 +12,10 @@ require_once('header.php');
                     <h2 id="mainTitle">Aller simple pour l'Alaska </h2>
 
                     <div id="lastChapter">
-                    <h3>Retrouver ici le dernier chapitre de Jean Forteroche</h3>
-                            <article class="chapter">
-                                <?php echo $post->getTitle(); ?><?php echo $post->getContent(); ?>
-                            </article>
+                        <h3>Retrouver ici le dernier chapitre de Jean Forteroche</h3>
+                        <article class="chapter">
+                            <?php echo $post->getTitle(); ?><?php echo $post->getContent(); ?>
+                        </article>
                     </div>
         </div>
 
