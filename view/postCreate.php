@@ -16,12 +16,10 @@ if ($admin === "admin"){
     </form>
 =======
     <section id="landscape2">
-        <form id="form" method="post">
             <label for="newBilletTitle">Titre du chapitre</label>
             <input id="title" type="text" name="title" id="newBilletTitle">
 
-            <label for="newBilletTitle">Contenu</label>
-            <textarea id="postContent" name="content" id="newBilletTitle"></textarea>
+            <textarea class="postContent" name="content"></textarea>
             <input type="submit" value="Valider" />
         </form>
     </section>

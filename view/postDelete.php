@@ -1,12 +1,10 @@
 <?php
 if ($admin === "admin"){
     ?>
-    <form method="post">
-        <label for='newBilletTitle'>Titre du chapitre</label>
-        <input type='text' name='title' id='newBilletTitle' value="<?php if (isset($post)) echo $post->getTitle(); ?>" disabled="disabled">
+    <form class="postUpdate" method="post">
+        <input type='text' name='title' id='newBilletTitle' value="<?php if (isset($post)) echo $post->getTitle(); ?>" disabled="disabled"><br>
 
-        <label for='newBilletTitle'>Contenu</label>
-        <textarea name='content' id='newBilletTitle' disabled="disabled"><?php if (isset($post)) echo $post->getContent(); ?></textarea>
+        <textarea name='content' class="postContent" disabled="disabled"><?php if (isset($post)) echo $post->getContent(); ?></textarea>
         <input type="hidden" name="delete" value="delete" />
         <input type="submit" value="Valider" />
     </form>
