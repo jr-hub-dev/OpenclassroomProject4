@@ -4,7 +4,7 @@
             <?php echo $post->getTitle(); ?>
         </h1>
 
-        <?php echo $post->getContent(); ?>
+        <?php echo $post->getContent(); ?><br>
         Date de création :<?php echo $post->getCreationDate()->format('d/m/Y H:i:s'); ?>
 
         <form method="post">

@@ -7,11 +7,12 @@ if ($admin === "admin") {
     require_once('tiny.php');
     ?>
     <section id="landscape2">
-        <label for="newBilletTitle">Titre du chapitre</label>
-        <input id="title" type="text" name="title" id="newBilletTitle">
+        <form id="form" method="post">
+            <label for="newBilletTitle">Titre du chapitre</label>
+            <input id="title" type="text" name="title" id="newBilletTitle">
 
-        <textarea class="postContent" name="content"></textarea>
-        <input type="submit" value="Valider" />
+            <textarea class="postContent" name="content"></textarea>
+            <input type="submit" value="Valider" />
         </form>
     </section>
 <?php } ?>

@@ -102,7 +102,10 @@ table {
 
 #container {
     position: relative;
-    top: 15%;
+    top: 20%;
+    border: 2px solid black;
+    border-spacing: 5px;
+    background-color: rgba(224, 216, 214);
 }
 
 /*Page Create post*/

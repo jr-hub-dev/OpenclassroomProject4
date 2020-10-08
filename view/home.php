@@ -14,7 +14,7 @@ require_once('header.php');
                     <div id="lastChapter">
                         <h3>Retrouver ici le dernier chapitre de Jean Forteroche</h3>
                         <article class="chapter">
-                            <?php echo $post->getTitle(); ?><?php echo $post->getContent(); ?>
+                            <?php echo $post->getTitle(); ?><br><?php echo $post->getContent(); ?>
                         </article>
                     </div>
         </div>
