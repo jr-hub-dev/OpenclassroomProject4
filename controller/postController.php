@@ -82,12 +82,15 @@ class PostController
         //Affichage du formulaire de création si droits admin
         $userManager = new UserManager();
         $admin = $userManager->isAdmin();
-
-        if ($admin === "admin") {
-            $template = 'postCreate';
-            include '../view/layout.php';
-        } elseif ($admin === "user") {
-            echo 'Vous devez être administrateur pour accéder à cette page';
+        if (!empty($_SESSION)){
+            if ($admin === "admin") {
+                $template = 'postCreate';
+                include '../view/layout.php';
+            } elseif ($admin === "user") {
+                echo 'Vous devez être administrateur pour accéder à cette page';
+            }
+        } else {
+            echo 'Vous devez être authentifié comme administrateur pour accéder à cette page';
         }
     }
 
@@ -97,25 +100,29 @@ class PostController
         //Affichage du formulaire de modification si droits admin
         $userManager = new UserManager();
         $admin = $userManager->isAdmin();
+        if (!empty($_SESSION)){
 
-        if ($admin === "admin") {
+            if ($admin === "admin") {
 
-            $postManager = new PostManager();
-            $post = $postManager->getPost($postId);
+                $postManager = new PostManager();
+                $post = $postManager->getPost($postId);
 
-            $errors = $this->cleanData();
+                $errors = $this->cleanData();
 
-            if (!empty($this->postClean) && empty($errors)) {
-                if ($postManager->modify($postId)) {
-                    header('Location: index.php?objet=post&action=view&id=' . $postId);
+                if (!empty($this->postClean) && empty($errors)) {
+                    if ($postManager->modify($postId)) {
+                        header('Location: index.php?objet=post&action=view&id=' . $postId);
+                    }
                 }
-            }
 
-            $template = 'postModify';
-            include '../view/layout.php';
-        } elseif ($admin === "user") {
-            echo 'Vous devez être administrateur pour accéder à cette page';
-        }
+                $template = 'postModify';
+                include '../view/layout.php';
+            } elseif ($admin === "user") {
+                echo 'Vous devez être administrateur pour accéder à cette page';
+            }
+        } else {
+            echo 'Vous devez être authentifié comme administrateur pour accéder à cette page';
+        }        
     }
 
     //Supprimer un post
@@ -124,23 +131,26 @@ class PostController
         //Affichage du formulaire de suppression si droits admin
         $userManager = new UserManager();
         $admin = $userManager->isAdmin();
+        if (!empty($_SESSION)){
+            if ($admin === "admin") {
+                $postManager = new PostManager();
+                $post = $postManager->getPost($postId);
 
-        if ($admin === "admin") {
-            $postManager = new PostManager();
-            $post = $postManager->getPost($postId);
-
-            if (!empty($_POST)) {
-                if ($postManager->delete($postId)) {
-                    header('Location: index.php');
-                    exit;
+                if (!empty($_POST)) {
+                    if ($postManager->delete($postId)) {
+                        header('Location: index.php');
+                        exit;
+                    }
+                    header('Location: index.php?objet=post&action=delete&id=' . $postId);
                 }
-                header('Location: index.php?objet=post&action=delete&id=' . $postId);
-            }
 
-            $template = 'postDelete';
-            include '../view/layout.php';
-        } elseif ($admin === "user") {
-            echo 'Vous devez être administrateur pour accéder à cette page';
+                $template = 'postDelete';
+                include '../view/layout.php';
+            } elseif ($admin === "user") {
+                echo 'Vous devez être administrateur pour accéder à cette page';
+            }
+        } else {
+            echo 'Vous devez être authentifié comme administrateur pour accéder à cette page';
         }
     }
 
