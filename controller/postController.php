@@ -100,8 +100,10 @@ class PostController
         //Affichage du formulaire de modification si droits admin
         $userManager = new UserManager();
         $admin = $userManager->isAdmin();
-        if (!empty($_SESSION)){
 
+        //Vérifie que la session n'est pas vide
+        if (!empty($_SESSION)){
+            //Vérifie que l'utilisateur est bien administrateur
             if ($admin === "admin") {
 
                 $postManager = new PostManager();
@@ -117,9 +119,11 @@ class PostController
 
                 $template = 'postModify';
                 include '../view/layout.php';
+            //Si l'utilisateur authentifié est un simple utilisateur et pas un admin    
             } elseif ($admin === "user") {
                 echo 'Vous devez être administrateur pour accéder à cette page';
             }
+        //Si l'utilisateur n'est pas du tout authentifié
         } else {
             echo 'Vous devez être authentifié comme administrateur pour accéder à cette page';
         }        
