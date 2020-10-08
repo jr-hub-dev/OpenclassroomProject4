@@ -23,11 +23,11 @@ class CommentManager extends Database
         $req = $bdd->prepare('SELECT id, post_id, content, creation, modification FROM comment'); // formater la date dans la vue + table avec 5 champs
         $req->execute();
         $result = $req->fetchAll();
-        //var_dump($result);
+
 
         $comments = [];
         foreach ($result as $comment) {
-var_dump($comment);
+
             $comments[] = $this->hydrate($comment);
         }
         
