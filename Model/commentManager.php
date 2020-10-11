@@ -97,5 +97,3 @@ class CommentManager extends Database
         ;
 
         return $comment;    
-    }
-}
