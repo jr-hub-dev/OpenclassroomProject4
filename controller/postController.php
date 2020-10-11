@@ -43,7 +43,9 @@ class PostController
     }
 
 
-    //Afficher vue
+    /**
+     * Afficher vue
+     */
     public function view($postId)
     {
         $postManager = new PostManager();
@@ -66,7 +68,9 @@ class PostController
         include '../view/layout.php';
     }
 
-    //Creation nouveau chapitre
+    /**
+     * Creation nouveau chapitre
+     */
     public function create()
     {
         $errors = $this->cleanData();
@@ -79,7 +83,7 @@ class PostController
             header('Location: index.php?objet=post&action=view&id=' . $postId);
         }
 
-        //Affichage du formulaire de création si droits admin
+        // Affichage du formulaire de création si droits admin
         $userManager = new UserManager();
         $admin = $userManager->isAdmin();
         if (!empty($_SESSION)){
@@ -94,7 +98,9 @@ class PostController
         }
     }
 
-    //Modifier un post
+    /**
+     * Modifier un post
+     */
     public function modify($postId) //idem que create
     {
         //Affichage du formulaire de modification si droits admin

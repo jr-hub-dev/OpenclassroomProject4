@@ -8,6 +8,7 @@ class CommentController
 {
     private $commentClean = array();
 
+    //Permet de signaler un commentaire
     public function alert($commentId)
     {
         $commentManager = new CommentManager();
@@ -16,13 +17,40 @@ class CommentController
         include '../view/layout.php';
     }
 
-    //Supprimer un comment
-    public function delete($commentId)
+    //Permet de signaler un commentaire
+    public function noAlert($commentId)
     {
         $commentManager = new CommentManager();
         $comment = $commentManager->getcomment($commentId);
 
-        if (!empty($_comment)) {
+        if (!empty($comment)) {
+            if ($commentManager->noAlert($commentId)) {
+                header('Location: index.php');
+                exit;
+            }
+            header('Location: index.php?objet=comment&action=noAlert&id=' . $commentId);
+        }
+        $template = 'commentNoAlert';
+        include '../view/layout.php';
+    }
+
+    //Permet d'afficher les alertes
+    public function displayAllAlerts()
+    {
+        $commentManager = new CommentManager();
+        $comments = $commentManager->getAllByAlert();
+        $template = 'alert';
+        include '../view/layout.php';
+    }
+    
+
+    //Supprimer un comment
+    public function delete($commentId)
+    {        
+        $commentManager = new CommentManager();
+        $comment = $commentManager->getcomment($commentId);
+
+        if (!empty($comment)) {
             if ($commentManager->delete($commentId)) {
                 header('Location: index.php');
                 exit;
@@ -38,6 +66,6 @@ class CommentController
     public function displayAll()
     {
         $commentManager = new CommentManager();
-        $comments = $commentManager->getComments();
+        $comments = $commentManager->getComments(); //get AllbyAlert
     }
 }

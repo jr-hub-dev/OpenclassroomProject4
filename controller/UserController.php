@@ -49,7 +49,9 @@ class UserController
 
         if (!empty($this->userClean) && empty($errors)) {
             $userManager = new UserManager();
-            $userManager->checkUser($this->userClean);
+            $login = $this->userClean['userLogin'];
+            $password = $this->userClean['userPassword'];
+            $userManager->checkUser($login, $password);
         }
 
         $template = 'loginPage';

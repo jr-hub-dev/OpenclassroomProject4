@@ -15,7 +15,7 @@ spl_autoload_register(function ($class) {
     if (is_file($class)) {
         require_once($class);
     } else {
-        throw new CustomException('Erreur interne de chargement');       
+        //throw new CustomException('Erreur interne de chargement');       
     }
 });
 
@@ -61,5 +61,11 @@ if (!isset($_GET['action']) || 'home' === $_GET['action'] || '' === $_GET['actio
     $commentController = new CommentController;
     if ('alert' === $_GET['action']) {
         $commentController->alert($_GET['id']);
+    } elseif ('alerts' === $_GET['action']) {
+        $commentController->displayAllAlerts();
+    }elseif ('delete' === $_GET['action']) {
+        $commentController->delete($_GET['id']);
+    }elseif ('noAlert' === $_GET['action']) {
+        $commentController->noAlert($_GET['id']);
     }
 }
