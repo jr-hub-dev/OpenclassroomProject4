@@ -7,7 +7,6 @@ use App\Model\CommentManager;
 class CommentController
 {
     private $commentClean = array();
-
     //Permet de signaler un commentaire
     public function alert($commentId)
     {
@@ -21,17 +20,9 @@ class CommentController
     public function noAlert($commentId)
     {
         $commentManager = new CommentManager();
-        $comment = $commentManager->getcomment($commentId);
-
-        if (!empty($comment)) {
-            if ($commentManager->noAlert($commentId)) {
-                header('Location: index.php');
-                exit;
-            }
-            header('Location: index.php?objet=comment&action=noAlert&id=' . $commentId);
-        }
-        $template = 'commentNoAlert';
-        include '../view/layout.php';
+        $commentManager->noAlert($commentId);
+        header('Location: index.php?objet=comment&action=alerts');
+        exit;
     }
 
     //Permet d'afficher les alertes

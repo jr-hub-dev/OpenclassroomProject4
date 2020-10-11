@@ -62,38 +62,37 @@ class UserManager extends Database
     // }
 
     /**
-     * Permet 
+     * Permet de 
+     * 1 : récupérer un utilisateur
+     * 2 : teste le mdp avec celui fournit par l'utilsiateur
+     * 3 : assigne le role dans la variable de session de l'utilisateur
+     * SOLID 
+     * 
+     * @param string  $loginClean Login de l'utilisateur recherché
+     * @param string  $passwordClean le mdp à vérifier
      */
-    public function checkUser($loginClean, $passwordClean)
+    public function checkUser(string $loginClean, string $passwordClean)
     {   
         $bdd = $this->dbConnect();
-        $req = $bdd ->prepare ('SELECT login, password FROM user WHERE login = login');
-        $req->execute(array($loginClean));
+        // nous utilisons une requête préparée pour éviter les injections SQL
+        $req = $bdd ->prepare('SELECT login, password FROM user WHERE login = :login');
+        // on remplace la chaîne ":login" par la valeur de $loginClean
+        $req->bindParam(':login', $loginClean);
+        $req->execute();
         $resultat = $req->fetch();
-
-        var_dump($resultat['login']);
+        $password_checked = password_verify($passwordClean, $resultat['password']);
         
-        if ($resultat['login'] === 'admin' && password_verify($passwordClean, $resultat['password'])) {    
-            var_dump('Login et mot de passe ok');
+        if ($password_checked) { 
             $_SESSION['userLogin'] = $loginClean;
-            $_SESSION['userLevel'] = "admin";
-
-
+            // utilisation de la syntaxe dite 'ternaire'
+            // equivalent à if($loginClean == "admin") {$level="admin"} else {$level="user"}
+            $role = $loginClean == "admin" ? "admin": "user";
+            $_SESSION['userLevel'] = $role;
             header('Location: index.php?action=home');
-
-        }elseif ($resultat['login'] === 'userr' && password_verify($passwordClean, $resultat['password'])) { 
-            $_SESSION['userLogin'] = $loginClean;
-            $_SESSION['userLevel'] = 'user';
-
-            header('Location: index.php?action=home');
-            var_dump($_SESSION['userLevel']);
         }else{
-            echo 'Mauvais login ou mot de passe';        
+            echo 'Mauvais login ou mot de passe';
         }
     }
-
- 
-
 
     function isAdmin()
     {
@@ -102,16 +101,13 @@ class UserManager extends Database
 
             //Si l'utilisateur est bien administrateur
             if ($_SESSION['userLevel'] === "admin") {
-
                 return "admin";
             }
             //Si l'utilisateur est simple utilisateur
             if ($_SESSION['userLevel'] === "user") {
-
                 return "user";
             }
         }
-
         return false;
     }
 

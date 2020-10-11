@@ -63,12 +63,15 @@ class CommentManager extends Database
 
     public function noAlert($commentId)
     {
-        $bdd = $this->dbConnect();
-        $req = $bdd->prepare('UPDATE FROM comment alert = false WHERE id = ?');
-
-        $req->execute(array($commentId));
+        $comment = $this->getcomment($commentId);
+        
+        if (!empty($comment)) {
+            $bdd = $this->dbConnect();
+            $req = $bdd->prepare('UPDATE comment SET alert = 0 WHERE id = :commentId');
+            $req->bindParam(':commentId', $commentId);
+            $req->execute();
+        }
     }
-    
 
     public function create($postId, $commentClean)
     {
