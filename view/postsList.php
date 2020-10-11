@@ -3,7 +3,7 @@ if (array_key_exists('userLogin', $_SESSION)) { ?>
 
     <section id="landscape">
         <?php if ($_SESSION['userLevel'] == 'admin') { ?>
-            <a href='index.php?objet=post&action=create'>Ecrire un nouveau chapitre</a>
+            <a class="button" href='index.php?objet=post&action=create'>Ecrire un nouveau chapitre</a>
         <?php } ?>
         <table>
             <tbody>
@@ -25,6 +25,7 @@ if (array_key_exists('userLogin', $_SESSION)) { ?>
                 <?php } ?>
             </tbody>
         </table>
+        <a class="button" href="index.php?objet=comment&action=alerts">Voir les commentaires signalés</a>
     </section>
 <?php } else { ?> Vous devez vous identifier pour accéder à cette page <br />
     <a href="index.php?objet=user&action=login">Se connecter</a>

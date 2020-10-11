@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\Model\Database;
 use DateTime;
+use PDO;
 
 class UserManager extends Database
 {
@@ -32,32 +33,63 @@ class UserManager extends Database
         return $users;
     }
 
-    public function checkUser($userClean)
-    {
-        //Définition des logs pour administrateur
-        $login = "admin";
-        $password = "admin";
-        $secure_pass = password_hash($password, PASSWORD_BCRYPT);
-        $level = "admin";
+    // public function checkUser($userClean)
+    // {
+    //     //Définition des logs pour administrateur
+    //     $login = "admin";
+    //     $secure_pass = '$2y$10$AmEbbMnvQlBrUgeEvBhOpuFYtqw8EgArXNhndAcBO53a4W2X.UjBC';
+    //     $level = "admin";
 
-        //Définition des logs pour simple utilisateur
-        $login2 = "userr";
-        $password2 = "user";
-        $secure_pass2 = password_hash($password2, PASSWORD_BCRYPT);
-        $level2 = "user";
+    //     //Définition des logs pour simple utilisateur
+    //     $login2 = "userr";
+    //     $secure_pass2 = '$2y$10$4uLQlOLCPzpvrHfAy3UjGeHzWAmQ7QFpSB00gLv0jX/lk/Iz8Vn.e';
+    //     $level2 = "user";
 
-        //Vérification des login et mots de passe
-        if ($userClean['userLogin'] === $login && password_verify($userClean['userPassword'], $secure_pass)) {
-            $_SESSION['userLogin'] = $login;
-            $_SESSION['userLevel'] = $level;
+    //     //Vérification des login et mots de passe
+    //     if ($userClean['userLogin'] === $login && password_verify($userClean['userPassword'], $secure_pass)) {
+    //         $_SESSION['userLogin'] = $login;
+    //         $_SESSION['userLevel'] = $level;
 
+    //         header('Location: index.php?action=home');
+    //     } elseif ($userClean['userLogin'] === $login2 && password_verify($userClean['userPassword'], $secure_pass2)) {
+    //         $_SESSION['userLogin'] = $login2;
+    //         $_SESSION['userLevel'] = $level2;
+
+    //         header('Location: index.php?action=home');
+    //     } else {
+    //         echo 'Mauvais login ou mot de passe';
+    //     }
+    // }
+
+    /**
+     * Permet de 
+     * 1 : récupérer un utilisateur
+     * 2 : teste le mdp avec celui fournit par l'utilsiateur
+     * 3 : assigne le role dans la variable de session de l'utilisateur
+     * SOLID 
+     * 
+     * @param string  $loginClean Login de l'utilisateur recherché
+     * @param string  $passwordClean le mdp à vérifier
+     */
+    public function checkUser(string $loginClean, string $passwordClean)
+    {   
+        $bdd = $this->dbConnect();
+        // nous utilisons une requête préparée pour éviter les injections SQL
+        $req = $bdd ->prepare('SELECT login, password FROM user WHERE login = :login');
+        // on remplace la chaîne ":login" par la valeur de $loginClean
+        $req->bindParam(':login', $loginClean);
+        $req->execute();
+        $resultat = $req->fetch();
+        $password_checked = password_verify($passwordClean, $resultat['password']);
+        
+        if ($password_checked) { 
+            $_SESSION['userLogin'] = $loginClean;
+            // utilisation de la syntaxe dite 'ternaire'
+            // equivalent à if($loginClean == "admin") {$level="admin"} else {$level="user"}
+            $role = $loginClean == "admin" ? "admin": "user";
+            $_SESSION['userLevel'] = $role;
             header('Location: index.php?action=home');
-        } elseif ($userClean['userLogin'] === $login2 && password_verify($userClean['userPassword'], $secure_pass2)) {
-            $_SESSION['userLogin'] = $login2;
-            $_SESSION['userLevel'] = $level2;
-
-            header('Location: index.php?action=home');
-        } else {
+        }else{
             echo 'Mauvais login ou mot de passe';
         }
     }
@@ -68,21 +100,22 @@ class UserManager extends Database
 
             //Si l'utilisateur est bien administrateur
             if ($_SESSION['userLevel'] === "admin") {
+<<<<<<< HEAD
 
             return "admin";
         }
         //Si l'utilisateur est simple utilisateur
         if ($_SESSION['userLevel'] ==="user"){
             return "user";
+=======
+>>>>>>> dev
                 return "admin";
             }
             //Si l'utilisateur est simple utilisateur
             if ($_SESSION['userLevel'] === "user") {
-
                 return "user";
             }
         }
-
         return false;
     }
 

@@ -65,7 +65,7 @@ class Post
         return $this->updateDate;
     }
 
-    public function setupdateDate(?DateTime $updateDate) // : self //int ou nul
+    public function setupdateDate(?DateTime $updateDate) // : self //int ou null
     {
         $this->updateDate = $updateDate;
 

@@ -39,23 +39,38 @@ class CommentManager extends Database
         $bdd = $this->dbConnect();
         $req = $bdd->prepare('SELECT id, post_id, content, creation, modification FROM comment WHERE post_id = ?'); // formater la date dans la vue + table avec 5 champs
         $req->execute(array($postId));
+
+        return $this->hydrateMultiple($req->fetchAll());
+    }
+
+    public function getAllByAlert() 
+    {   
+        $bdd = $this->dbConnect();
+        $req = $bdd->prepare('SELECT id, post_id, content, creation, modification FROM comment WHERE alert = 1'); // formater la date dans la vue + table avec 5 champs
+        $req->execute();
         $result = $req->fetchAll();
 
-        $comments = [];
-        foreach ($result as $comment) {
-            $comments[] = $this->hydrate($comment);
-        }
-        
-        return $comments;
+        return $this->hydrateMultiple($result);
     }
 
     public function alert($commentId)
-    {   
-        
+    {           
         $bdd = $this->dbConnect();
         $req = $bdd->prepare('UPDATE comment SET alert = true WHERE id = ?');
         
         $req->execute(array($commentId));
+    }
+
+    public function noAlert($commentId)
+    {
+        $comment = $this->getcomment($commentId);
+        
+        if (!empty($comment)) {
+            $bdd = $this->dbConnect();
+            $req = $bdd->prepare('UPDATE comment SET alert = 0 WHERE id = :commentId');
+            $req->bindParam(':commentId', $commentId);
+            $req->execute();
+        }
     }
 
     public function create($postId, $commentClean)
@@ -65,17 +80,6 @@ class CommentManager extends Database
         $req->execute(array($postId, $commentClean['comment']));
     }
 
-    public function modify($commentId)
-    {
-        $bdd = $this->dbConnect();
-        $req = $bdd->prepare('UPDATE comment SET content = ?, modification = NOW() WHERE id = ?');
-        
-        return $req->execute(array(
-            $commentClean['content']= $_POST['content'], 
-            $commentId
-        ));
-
-    }
 
     public function delete($commentId)
     {
@@ -97,3 +101,19 @@ class CommentManager extends Database
         ;
 
         return $comment;    
+<<<<<<< HEAD
+=======
+    }
+
+
+    public function hydrateMultiple($result)
+    {
+        $comments = [];
+        foreach ($result as $comment) {
+            $comments[] = $this->hydrate($comment);
+        }
+            
+        return $comments;
+    }
+}
+>>>>>>> dev
