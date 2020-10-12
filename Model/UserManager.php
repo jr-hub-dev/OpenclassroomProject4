@@ -72,15 +72,6 @@ class UserManager extends Database
 
             //Si l'utilisateur est bien administrateur
             if ($_SESSION['userLevel'] === "admin") {
-<<<<<<< HEAD
-
-            return "admin";
-        }
-        //Si l'utilisateur est simple utilisateur
-        if ($_SESSION['userLevel'] ==="user"){
-            return "user";
-=======
->>>>>>> dev
                 return "admin";
             }
             //Si l'utilisateur est simple utilisateur
