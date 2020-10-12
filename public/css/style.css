@@ -154,6 +154,11 @@ table {
     height: 700px;
 }
 
+/*Page signalement*/
+#signal{
+    margin-top: 5%;
+}
+
 /*Footer*/
 
 footer {
