@@ -33,40 +33,12 @@ class UserManager extends Database
         return $users;
     }
 
-    // public function checkUser($userClean)
-    // {
-    //     //Définition des logs pour administrateur
-    //     $login = "admin";
-    //     $secure_pass = '$2y$10$AmEbbMnvQlBrUgeEvBhOpuFYtqw8EgArXNhndAcBO53a4W2X.UjBC';
-    //     $level = "admin";
-
-    //     //Définition des logs pour simple utilisateur
-    //     $login2 = "userr";
-    //     $secure_pass2 = '$2y$10$4uLQlOLCPzpvrHfAy3UjGeHzWAmQ7QFpSB00gLv0jX/lk/Iz8Vn.e';
-    //     $level2 = "user";
-
-    //     //Vérification des login et mots de passe
-    //     if ($userClean['userLogin'] === $login && password_verify($userClean['userPassword'], $secure_pass)) {
-    //         $_SESSION['userLogin'] = $login;
-    //         $_SESSION['userLevel'] = $level;
-
-    //         header('Location: index.php?action=home');
-    //     } elseif ($userClean['userLogin'] === $login2 && password_verify($userClean['userPassword'], $secure_pass2)) {
-    //         $_SESSION['userLogin'] = $login2;
-    //         $_SESSION['userLevel'] = $level2;
-
-    //         header('Location: index.php?action=home');
-    //     } else {
-    //         echo 'Mauvais login ou mot de passe';
-    //     }
-    // }
-
     /**
      * Permet de 
      * 1 : récupérer un utilisateur
      * 2 : teste le mdp avec celui fournit par l'utilsiateur
      * 3 : assigne le role dans la variable de session de l'utilisateur
-     * SOLID 
+     *  
      * 
      * @param string  $loginClean Login de l'utilisateur recherché
      * @param string  $passwordClean le mdp à vérifier
