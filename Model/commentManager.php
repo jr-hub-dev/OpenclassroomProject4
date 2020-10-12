@@ -102,8 +102,6 @@ class CommentManager extends Database
         ;
 
         return $comment;    
-<<<<<<< HEAD
-=======
     }
 
 
@@ -117,4 +115,3 @@ class CommentManager extends Database
         return $comments;
     }
 }
->>>>>>> dev
