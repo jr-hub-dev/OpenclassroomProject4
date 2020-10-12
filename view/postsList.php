@@ -25,7 +25,9 @@ if (array_key_exists('userLogin', $_SESSION)) { ?>
                 <?php } ?>
             </tbody>
         </table>
-        <a class="button" href="index.php?objet=comment&action=alerts">Voir les commentaires signalés</a>
+        <?php if ($_SESSION['userLevel'] == 'admin') { ?>
+            <a class="button" href="index.php?objet=comment&action=alerts">Voir les commentaires signalés</a>
+        <?php } ?>
     </section>
 <?php } else { ?> Vous devez vous identifier pour accéder à cette page <br />
     <a href="index.php?objet=user&action=login">Se connecter</a>

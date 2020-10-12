@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\Model\Database;
 use DateTime;
+//use Comment (ne marche pas si use Comment est utilisé sous windows en local)
 
 class CommentManager extends Database
 { 
@@ -91,7 +92,7 @@ class CommentManager extends Database
 
     public function hydrate($data)
     {
-        $comment = new comment();
+        $comment = new Comment();
         $comment
             ->setId($data['id'])
             ->setPostNumber($data['post_id'])
